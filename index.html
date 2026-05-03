@@ -1,0 +1,338 @@
+<!--
+
+ _____ ______   _______   ________  ________  ________  _________  ___  ________  ___  __       
+|\   _ \  _   \|\  ___ \ |\   ____\|\   __  \|\   ____\|\___   ___\\  \|\   ____\|\  \|\  \     
+\ \  \\\__\ \  \ \   __/|\ \  \___|\ \  \|\  \ \  \___|\|___ \  \_\ \  \ \  \___|\ \  \/  /|_   
+ \ \  \\|__| \  \ \  \_|/_\ \  \  __\ \   __  \ \_____  \   \ \  \ \ \  \ \  \    \ \   ___  \  
+  \ \  \    \ \  \ \  \_|\ \ \  \|\  \ \  \ \  \|____|\  \   \ \  \ \ \  \ \  \____\ \  \\ \  \ 
+   \ \__\    \ \__\ \_______\ \_______\ \__\ \__\____\_\  \   \ \__\ \ \__\ \_______\ \__\\ \__\
+    \|__|     \|__|\|_______|\|_______|\|__|\|__|\_________\   \|__|  \|__|\|_______|\|__| \|__|
+                                                \|_________|                                    
+
+
+                                        ARCHIVO HTML.
+-->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DropTune | yt-dlp UI</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="DropTune es una interfaz gráfica gratuita para descargar música y videos de YouTube, Vimeo, SoundCloud y más. Sin publicidad, sin comandos, sin complicaciones.">
+    <meta name="keywords" content="descargar música, descargar videos, youtube downloader, yt-dlp gui, mp3 downloader, mp4 downloader, gratis, sin publicidad">
+    <meta name="author" content="MegaStick & AndyGuss">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <!-- TODO: Actualiza estas URLs cuando tengas tu GitHub Pages: https://USUARIO.github.io/DropTune/ -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://megastick.github.io/DropTune/">
+    <meta property="og:title" content="DropTune - Descarga Música y Videos Gratis">
+    <meta property="og:description" content="Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, sin complicaciones.">
+    <meta property="og:image" content="https://megastick.github.io/DropTune/img/droptune_icon.png">
+    <meta property="og:locale" content="es_MX">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://megastick.github.io/DropTune/">
+    <meta name="twitter:title" content="DropTune - Descarga Música y Videos Gratis">
+    <meta name="twitter:description" content="Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, sin complicaciones.">
+    <meta name="twitter:image" content="https://megastick.github.io/DropTune/img/droptune_icon.png">
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#29ABE0">
+    <meta name="msapplication-TileColor" content="#0D1117">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="icon" type="image/x-icon" href="img/droptune_icon.png">
+    <link rel="apple-touch-icon" href="img/droptune_icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://megastick.github.io/DropTune/">
+</head>
+<body>
+    <!-- Fondo con gradiente animado -->
+    <div class="background">
+        <div class="gradient-bg"></div>
+        <div class="noise-overlay"></div>
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <!-- Navegación -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="img/droptune_icon.png" alt="DropTune" class="nav-logo">
+                <span class="nav-title">DropTune</span>
+            </div>
+            <div class="nav-links">
+                <a href="#features" class="nav-link">Características</a>
+                <a href="#about" class="nav-link">Acerca de</a>
+                <a href="#download" class="nav-link nav-link-primary">Descargar</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span>v1.2</span>
+                <span class="badge-separator">•</span>
+                <span>Windows</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">Descarga música y videos</span>
+                <span class="title-line title-gradient">sin complicaciones</span>
+            </h1>
+            <p class="hero-description">
+                Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, sin complicaciones en Windows.
+            </p>
+            <div class="hero-buttons">
+                <a href="https://www.mediafire.com/file/7x1ww7eoajaf10k/DropTune+-+Final+Build.zip/file"
+                   class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                    <img src="img/download_icon.png" alt="" class="btn-icon">
+                    <span>Descargar Gratis</span>
+                </a>
+                <a href="#features" class="btn btn-secondary">
+                    <span>Ver características</span>
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-value">100%</span>
+                    <span class="stat-label">Gratis</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">0</span>
+                    <span class="stat-label">Anuncios</span>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat">
+                    <span class="stat-value">MP3/MP4</span>
+                    <span class="stat-label">Formatos</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="screenshot-wrapper">
+                <img src="img/DropTune_1.png" alt="DropTune Screenshot" class="screenshot">
+                <div class="screenshot-glow"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-container">
+            <div class="section-header">
+                <span class="section-tag">Características</span>
+                <h2 class="section-title">Todo lo que necesitas</h2>
+                <p class="section-description">Diseñado para ser simple pero poderoso</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="shimmer"></div>
+                    <div class="feature-icon-wrapper">
+                        <img src="img/music_icon.png" alt="Música" class="feature-icon">
+                    </div>
+                    <h3 class="feature-title">Música en HD</h3>
+                    <p class="feature-description">Descarga canciones en la más alta calidad disponible, con metadatos completos y carátula embebida automáticamente.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="shimmer"></div>
+                    <div class="feature-icon-wrapper">
+                        <img src="img/video_icon.png" alt="Video" class="feature-icon">
+                    </div>
+                    <h3 class="feature-title">Videos en HD</h3>
+                    <p class="feature-description">Elige la calidad que prefieras: 480p, 720p, 1080p o la mejor disponible. (Hasta más de 4k @60fps)</p>
+                </div>
+                <div class="feature-card">
+                    <div class="shimmer"></div>
+                    <div class="feature-icon-wrapper">
+                        <img src="img/playlist_icon.png" alt="Playlist" class="feature-icon">
+                    </div>
+                    <h3 class="feature-title">Playlists Completas</h3>
+                    <p class="feature-description">Descarga listas de reproducción enteras con un solo clic.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="shimmer"></div>
+                    <div class="feature-icon-wrapper">
+                        <img src="img/no_ads_icon.png" alt="Sin Anuncios" class="feature-icon">
+                    </div>
+                    <h3 class="feature-title">Sin Publicidad</h3>
+                    <p class="feature-description">Experiencia limpia y directa. Sin pop-ups, sin esperas, sin molestias, nada de esas porquerías molestas como en otras partes.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-header">
+                <span class="section-tag">Nuestra Historia</span>
+                <h2 class="section-title">¿Por qué creamos DropTune?</h2>
+                <p class="section-description">
+                    Fue más que nada por una <strong>necesidad que tuvimos</strong>. Las páginas web que descargan música o vídeos regularmente están llenas de publicidad molesta, o simplemente no descargan el video en la calidad correcta o de forma correcta, pues nos cansamos de eso y decidimos hacer esta herramienta. :3
+                </p>
+            </div>
+            
+            <!-- Créditos -->
+            <div class="credits-section">
+                <h3 class="credits-title">Créditos</h3>
+                
+                <div class="credits-grid">
+                    <!-- AndyGuss -->
+                    <div class="credit-card">
+                        <div class="credit-header">
+                            <img src="img/AndyGuss.png" alt="AndyGuss" class="credit-avatar-img">
+                            <div class="credit-info">
+                                <h4 class="credit-name">AndyGuss</h4>
+                                <span class="credit-role">Idea Original & Scripts</span>
+                            </div>
+                        </div>
+                        <p class="credit-description">
+                            Creador del proyecto original con archivos .bat que permitían descargar música y videos mediante línea de comandos. La base de todo lo que es DropTune hoy, era bastante sólido los 2 .bats que permitían la descarga de música y vídeos. ^^
+                        </p>
+                        <div class="credit-social">
+                            <a href="https://www.youtube.com/@AndygussXD" target="_blank" class="social-link">
+                                <img src="img/youtube.png" alt="YouTube" class="social-icon">
+                            </a>
+                            <a href="https://x.com/andy_guss" target="_blank" class="social-link">
+                                <img src="img/x_icon.png" alt="X" class="social-icon">
+                            </a>
+                            <button class="social-link discord-copy" data-username="andyguss" title="Copiar usuario de Discord">
+                                <img src="img/discord_icon.png" alt="Discord" class="social-icon">
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- MegaStick -->
+                    <div class="credit-card">
+                        <div class="credit-header">
+                            <img src="img/MegaStick.png" alt="MegaStick" class="credit-avatar-img">
+                            <div class="credit-info">
+                                <h4 class="credit-name">MegaStick</h4>
+                                <span class="credit-role">Interfaz Gráfica & Mejoras</span>
+                            </div>
+                        </div>
+                        <p class="credit-description">
+                            Transformó el proyecto de línea de comandos a una interfaz gráfica mucho más amigable. Agregó múltiples funcionalidades, optimizaciones y mejoras de experiencia de usuario, a su vez de que es la primera vez que se lleva esto a una interfaz gráfica al menos de momento en Windows.
+                        </p>
+                        <div class="credit-social">
+                            <a href="https://www.youtube.com/@MegaStick" target="_blank" class="social-link">
+                                <img src="img/youtube.png" alt="YouTube" class="social-icon">
+                            </a>
+                            <a href="https://x.com/megastick87" target="_blank" class="social-link">
+                                <img src="img/x_icon.png" alt="X" class="social-icon">
+                            </a>
+                            <button class="social-link discord-copy" data-username="megastick" title="Copiar usuario de Discord">
+                                <img src="img/discord_icon.png" alt="Discord" class="social-icon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Herramientas -->
+                <div class="tools-section">
+                    <h3 class="tools-title">Herramientas Utilizadas</h3>
+                    <p class="tools-description">DropTune no existiría sin estas increíbles y útiles herramientas de código abierto:</p>
+                    
+                    <div class="tools-grid">
+                        <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" class="tool-card">
+                            <div class="tool-header">
+                                <img src="img/ytdlp_icon.png" alt="YT-DLP" class="tool-icon">
+                                <div class="tool-name">YT-DLP</div>
+                            </div>
+                            <p class="tool-description">Motor de descarga de videos. Fork mejorado de youtube-dl con soporte para cientos de sitios.</p>
+                        </a>
+                        <a href="https://ffmpeg.org/" target="_blank" class="tool-card">
+                            <div class="tool-header">
+                                <img src="img/FFmpeg_icon.png" alt="FFmpeg" class="tool-icon">
+                                <div class="tool-name">FFmpeg</div>
+                            </div>
+                            <p class="tool-description">Conversión y procesamiento de audio/video. Una herramienta muy completa.</p>
+                        </a>
+                    </div>
+                    <p class="sites-note">
+                        <a href="https://github.com/yt-dlp/yt-dlp/blob/master/supportedsites.md" target="_blank" rel="noopener noreferrer">
+                            Ver lista completa de sitios soportados por yt-dlp →
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="download" id="download">
+        <div class="section-container">
+            <div class="download-card">
+                <div class="download-content">
+                    <h2 class="download-title">Listo para descargar</h2>
+                    <p class="download-description">Obtén DropTune gratis y comienza a descargar tu música y videos favoritos.</p>
+                    <div class="download-info">
+                        <div class="info-item">
+                            <span class="info-label">Versión</span>
+                            <span class="info-value">1.2</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Tamaño</span>
+                            <span class="info-value">~316 MB</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label">Sistema</span>
+                            <span class="info-value">Windows 10+</span>
+                        </div>
+                    </div>
+                    <a href="https://www.mediafire.com/file/7x1ww7eoajaf10k/DropTune+-+Final+Build.zip/file"
+                       class="btn btn-download" target="_blank" rel="noopener noreferrer">
+                        <img src="img/download_icon.png" alt="" class="btn-icon">
+                        <div class="btn-text">
+                            <span class="btn-main">Descargar DropTune</span>
+                            <span class="btn-sub">v1.2 - Gratis</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <img src="img/droptune_icon.png" alt="DropTune" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <span class="footer-title">DropTune</span>
+                        <span class="footer-subtitle">Descargador de Música y Videos</span>
+                    </div>
+                </div>
+                <div class="footer-support">
+                    <p class="support-text">¿Te gusta DropTune? Apóyanos</p>
+                    <a href="https://ko-fi.com/megastick" target="_blank" class="kofi-button">
+                        <img src="img/ko_fi_logo_icon.png" alt="Ko-fi" class="kofi-icon">
+                        <span>Apóyanos en Ko-fi</span>
+                    </a>
+                </div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p class="footer-credits">
+                    Desarrollado por <strong>MegaStick</strong> & <strong>AndyGuss</strong>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
