@@ -273,6 +273,7 @@ a { text-decoration: none; color: inherit; }
     padding: 14px 28px;
     background: rgba(22, 27, 34, 0.75);
     backdrop-filter: blur(3px) url(#glass-distortion);
+    -webkit-backdrop-filter: blur(3px);
     border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: var(--radius-full);
     transition: var(--transition-smooth);
