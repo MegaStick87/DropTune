@@ -136,7 +136,7 @@ a {
     border-radius: 0;
     box-shadow: none;
     backdrop-filter: blur(6px) url(#glass-distortion);
-    -webkit-backdrop-filter: blur(6px) url(#glass-distortion);
+    -webkit-backdrop-filter: blur(6px);
     transition: background var(--transition), box-shadow 0.28s ease;
 }
 
@@ -1170,6 +1170,23 @@ a {
     .hero {
         padding-left: 16px;
         padding-right: 16px;
+        text-align: center;
+    }
+
+    .hero-content {
+        width: 100%;
+    }
+
+    .hero-title {
+        max-width: 100%;
+        font-size: clamp(2.45rem, 10.8vw, 3.35rem);
+        letter-spacing: -0.025em;
+    }
+
+    .hero-description {
+        max-width: 34ch;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .hero-buttons,
@@ -1182,12 +1199,17 @@ a {
     }
 
     .hero-stats {
+        width: 100%;
         flex-direction: column;
         gap: 18px;
         padding: 20px;
         background: var(--paper);
         border: 1px solid var(--line);
         border-radius: var(--radius-md);
+    }
+
+    .hero-image {
+        width: 100%;
     }
 
     .stat-divider {
