@@ -534,7 +534,8 @@ dialog.modal-dialog.pretty-modal-closing::backdrop {
     .modal-card {
         max-height: calc(100vh - 24px);
         max-height: calc(100dvh - 24px);
-        overflow: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .modal-title {
@@ -1694,6 +1695,10 @@ dialog.modal-dialog.pretty-modal-closing::backdrop {
     .modal-actions,
     .modal-actions .btn {
         width: 100%;
+    }
+
+    #dialog-details .modal-actions {
+        display: none;
     }
 }
 
