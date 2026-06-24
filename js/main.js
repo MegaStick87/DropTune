@@ -12,8 +12,14 @@
 //                                             ARCHIVO JS.
 // No tengo nada que decir aca jijijja
 
+import { PrettyModal } from './PrettyModal.js';
+
 const $ = (selector, scope = document) => scope.querySelector(selector);
 const $$ = (selector, scope = document) => [...scope.querySelectorAll(selector)];
+
+// Initialize PrettyModal
+const prettyModal = new PrettyModal();
+window.prettyModal = prettyModal;
 
 const navbar = $('.navbar');
 const navLogo = $('.nav-logo');
@@ -70,6 +76,62 @@ function createConfetti() {
 
         document.body.appendChild(confetti);
         setTimeout(() => confetti.remove(), 3200);
+    }
+}
+
+const supportsViewTransition = typeof document.startViewTransition === 'function';
+
+async function toggleDialog(event, dialogId) {
+    const viewTransitionClass = 'vt-element-animation';
+    const viewTransitionClassClosing = 'vt-element-animation-closing';
+    const openDialog = document.querySelector('dialog[open]');
+    const dialog = dialogId ? document.getElementById(dialogId) : openDialog;
+    if (!dialog) return;
+
+    if (!dialogId) {
+        if (!dialog.open) return;
+
+        const originElement = document.querySelector('[origin-element]');
+        if (supportsViewTransition && originElement) {
+            dialog.style.viewTransitionName = 'vt-shared';
+            dialog.style.viewTransitionClass = viewTransitionClassClosing;
+            originElement.style.viewTransitionName = 'vt-shared';
+            originElement.style.viewTransitionClass = viewTransitionClassClosing;
+
+            const viewTransition = document.startViewTransition(() => {
+                originElement.style.viewTransitionName = '';
+                originElement.style.viewTransitionClass = '';
+                dialog.style.viewTransitionName = '';
+                dialog.style.viewTransitionClass = '';
+                dialog.close();
+            });
+            await viewTransition.finished;
+        } else {
+            dialog.close();
+        }
+
+        return false;
+    }
+
+    if (dialog.open) return;
+
+    const originElement = event.currentTarget;
+
+    if (supportsViewTransition) {
+        dialog.style.viewTransitionName = 'vt-shared';
+        dialog.style.viewTransitionClass = viewTransitionClass;
+        originElement.style.viewTransitionName = 'vt-shared';
+        originElement.style.viewTransitionClass = viewTransitionClass;
+        originElement.setAttribute('origin-element', '');
+
+        const viewTransition = document.startViewTransition(() => {
+            originElement.style.viewTransitionName = '';
+            originElement.style.viewTransitionClass = '';
+            dialog.showModal();
+        });
+        await viewTransition.finished;
+    } else {
+        dialog.showModal();
     }
 }
 
