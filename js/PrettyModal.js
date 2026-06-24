@@ -3,20 +3,28 @@ export class PrettyModal {
         this.injectStyles()
     }
 
-    open(dialogId){
-
+    open(dialogId, trigger = null){
         const dialog = document.getElementById(dialogId)
-        if(!dialog) return
+        if(!dialog || dialog.open) return
 
-        const origin = event.currentTarget
+        const eventOrigin = window.event && window.event.currentTarget
+        const origin = trigger || eventOrigin || document.activeElement
+        const canFlip = window.Flip && window.CustomEase && origin instanceof Element
         const randomId = Math.random().toString(16).slice(2)
 
-        dialog.dataset.flipId = randomId
-        origin.dataset.flipId = randomId
+        if (origin instanceof Element) {
+            dialog.dataset.flipId = randomId
+            origin.dataset.flipId = randomId
+        }
 
-        const originState = Flip.getState(origin)
-
+        const originState = canFlip ? Flip.getState(origin) : null
         dialog.showModal()
+
+        if (!canFlip) {
+            dialog.classList.add('pretty-modal-opening')
+            window.setTimeout(() => dialog.classList.remove('pretty-modal-opening'), 520)
+            return
+        }
 
         Flip.from(originState, {
             targets: dialog,
@@ -25,41 +33,44 @@ export class PrettyModal {
             toggleClass: 'pretty-modal-opening',
             duration: 0.7,
         })
-
     }
 
     close(dialogId){
-
         const dialog = document.getElementById(dialogId)
-        if(!dialog) return
+        if(!dialog || !dialog.open) return
 
-        const originId = dialog.dataset.flipId;
-        const origin = document.querySelector(`[data-flip-id="${originId}"]:not([open])`)
+        const originId = dialog.dataset.flipId
+        const origin = originId ? document.querySelector(`[data-flip-id="${originId}"]:not([open])`) : null
+        const canFlip = window.Flip && window.CustomEase && origin instanceof Element
 
-        const originState = Flip.getState(origin) 
-        
+        if (!canFlip) {
+            dialog.classList.add('pretty-modal-closing')
+            window.setTimeout(() => {
+                dialog.classList.remove('pretty-modal-closing')
+                dialog.removeAttribute('style')
+                dialog.close()
+            }, 700)
+            return
+        }
+
+        const originState = Flip.getState(origin)
         Flip.to(originState, {
             targets: dialog,
             scale: true,
             ease: CustomEase.create("custom", "M0,0 C0.305,0.206 0.116,0.567 0.3,0.8 0.394,0.921 0.491,1 1,1"),
             onComplete: () => {
-                dialog.setAttribute("style", "")
+                dialog.removeAttribute('style')
                 dialog.close()
             },
             toggleClass: 'pretty-modal-closing',
-            duration: 0.7,  
+            duration: 0.7,
         })
-
-        
-
     }
 
     injectStyles() {
-        // Evitar inyectar múltiples veces
         if (document.getElementById('pretty-modal-styles')) return;
 
         const styles = `
-
             .pretty-modal-opening {
                 animation: pretty-modal-opening 500ms cubic-bezier(.56,.27,0,1);
             }
@@ -69,13 +80,13 @@ export class PrettyModal {
             }
 
             .pretty-modal-closing {
-                animation: 
-                    pretty-modal-closing-border-radius 500ms cubic-bezier(.56,.27,0,1), 
-                    pretty-modal-closing-blur 500ms cubic-bezier(.37,.35,0,1), 
+                animation:
+                    pretty-modal-closing-border-radius 500ms cubic-bezier(.56,.27,0,1),
+                    pretty-modal-closing-blur 500ms cubic-bezier(.37,.35,0,1),
                     pretty-modal-closing-fade 700ms cubic-bezier(.56,.27,0,1)
                 ;
             }
-            
+
             @keyframes pretty-modal-closing-border-radius {
                 to { border-radius:400px; }
             }
@@ -87,7 +98,6 @@ export class PrettyModal {
             @keyframes pretty-modal-closing-fade {
                 from { opacity: 1; } to { opacity: 0; }
             }
-
         `;
 
         const styleSheet = document.createElement('style');
