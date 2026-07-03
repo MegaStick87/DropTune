@@ -310,12 +310,19 @@ a {
     font-size: 16px;
 }
 
-.theme-toggle:hover { transform: translateY(-2px); }
+.theme-toggle:hover { transform: none; }
+.theme-toggle:active { transform: none; }
 
 /* Theme toggle icons */
 .theme-toggle {
     position: relative;
     overflow: hidden;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transform-origin: center center;
+    -webkit-transform-origin: center center;
+    will-change: transform;
 }
 
 .theme-toggle .theme-icon {
@@ -331,11 +338,11 @@ a {
     opacity: 1;
 }
 
-.theme-toggle .icon-sun { opacity: 0; transform: translate(-50%, -50%) scale(0.9) translateY(-4px); }
+.theme-toggle .icon-sun { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
 .theme-toggle .icon-moon { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 
 [data-theme="dark"] .theme-toggle .icon-sun { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-[data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: translate(-50%, -50%) scale(0.9) translateY(-4px); }
+[data-theme="dark"] .theme-toggle .icon-moon { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
 
 /* Hover / focus subtle pop */
 .theme-toggle:hover .theme-icon,
@@ -698,6 +705,15 @@ dialog.modal-dialog.pretty-modal-closing::backdrop {
         align-items: start;
     }
 }
+
+/* Small screens: tighten navbar padding and ensure toggle centers */
+@media (max-width: 520px) {
+    .navbar { padding: 10px 12px; }
+    .navbar-glass { top: 10px; }
+    .nav-title { font-size: 1rem; }
+    .theme-toggle { width: 36px; height: 34px; margin-left: 4px; }
+    .theme-toggle .theme-icon { width: 18px; height: 18px; }
+}
 /* Hero */
 .hero {
     position: relative;
@@ -920,7 +936,7 @@ dialog.modal-dialog.pretty-modal-closing::backdrop {
 .credit-card:hover,
 .tool-card:hover,
 .site-badge:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     border-color: #b9cedd;
 }
 

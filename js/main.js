@@ -150,9 +150,9 @@ function initTheme() {
             // Button press animation (use GSAP if available for a nicer effect)
             try {
                 if (gsap) {
-                    gsap.fromTo(toggle, { scale: 0.92, rotate: -6 }, { scale: 1, rotate: 0, duration: d(0.32), ease: 'back.out(1.6)' });
+                    gsap.fromTo(toggle, { scale: 0.92 }, { scale: 1, duration: d(0.32), ease: 'back.out(1.6)' });
                 } else {
-                    toggle.animate([{ transform: 'scale(0.92) rotate(-6deg)' }, { transform: 'scale(1) rotate(0deg)' }], { duration: d(320), easing: 'cubic-bezier(.2,.9,.2,1)' });
+                    toggle.animate([{ transform: 'scale(0.92)' }, { transform: 'scale(1)' }], { duration: d(320), easing: 'cubic-bezier(.2,.9,.2,1)' });
                 }
             } catch (e) { /* ignore animation errors */ }
 
@@ -430,14 +430,8 @@ function setupGsapAnimations() {
         .from('.hero-stats .stat, .hero-stats .stat-divider', { y: 16, autoAlpha: 0, stagger: d(0.07) }, '-=0.35')
         .from('.screenshot-wrapper', { x: 42, y: 28, rotate: 1.8, autoAlpha: 0, duration: d(1.05) }, '-=0.8');
 
-    gsap.to('.screenshot-wrapper', {
-        y: -10,
-        rotate: -0.35,
-        duration: d(3.8),
-        yoyo: true,
-        repeat: -1,
-        ease: 'sine.inOut'
-    });
+    // Keep screenshot visually stable: remove subtle floating loop
+    // (Retain 3D mouse-driven rotation and entry animation.)
 
     gsap.to('.hero-badge', {
         y: -4,
@@ -456,10 +450,10 @@ function setupGsapAnimations() {
         hoverTargets.forEach(target => {
             const isButton = target.classList.contains('btn') || target.classList.contains('kofi-button');
 
-            // Botones tienen un desplazamiento más sutil para evitar movimiento excesivo
+            // Botones tienen un desplazamiento mínimo para evitar que suban demasiado
             const enterProps = isButton
-                ? { y: -2, scale: 1.01, duration: d(0.18), overwrite: 'auto' }
-                : { y: -6, scale: 1.02, duration: d(0.24), overwrite: 'auto' };
+                ? { y: -1, scale: 1.01, duration: d(0.18), overwrite: 'auto' }
+                : { y: -3, scale: 1.02, duration: d(0.24), overwrite: 'auto' };
 
             const leaveProps = { y: 0, scale: 1, duration: d(0.28), overwrite: 'auto' };
 
@@ -497,12 +491,14 @@ function setupGsapAnimations() {
         originalImg.style.cursor = 'zoom-in';
 
         let overlayEl = null;
+        let _initRect = null;
 
         function openLightbox() {
             if (!gsap) return window.open(originalImg.src, '_blank');
             if (overlayEl) return;
 
             const rect = originalImg.getBoundingClientRect();
+            _initRect = rect;
 
             overlayEl = document.createElement('div');
             overlayEl.className = 'screenshot-overlay';
@@ -577,10 +573,39 @@ function setupGsapAnimations() {
                 }, 0);
 
             function closeLightbox() {
-                document.body.style.overflow = '';
+                // Compute destination rect of the original image at close time (handles scroll/resize)
+                const srcRect = originalImg.getBoundingClientRect() || _initRect;
+
+                // If init rect not available, fallback to srcRect
+                const initRect = _initRect || srcRect;
+
+                // Helper to check if thumbnail is visible in viewport
+                const isVisible = (r) => !(r.bottom < 0 || r.top > window.innerHeight || r.right < 0 || r.left > window.innerWidth);
+
+                if (!isVisible(srcRect)) {
+                    // If thumbnail is offscreen, do a graceful fade+scale instead of forcing movement
+                    gsap.timeline({ defaults: { ease: 'power3.inOut' } })
+                        .to(overlayEl, { backdropFilter: 'blur(0px)', background: 'rgba(8,10,12,0)', duration: d(0.36) }, 0)
+                        .to(clone, { autoAlpha: 0, scale: 0.9, duration: d(0.42), onComplete: () => {
+                            overlayEl?.remove();
+                            overlayEl = null;
+                        } }, 0);
+
+                    window.removeEventListener('keydown', onKey);
+                    try { lastFocused?.focus?.(); } catch (e) { originalImg.focus?.(); }
+                    setTimeout(() => { document.body.style.overflow = ''; }, d(300));
+                    return;
+                }
+
+                // Compute final transform values relative to clone's original top/left
+                const finalScale = srcRect.width / initRect.width;
+                const finalX = srcRect.left - initRect.left;
+                const finalY = srcRect.top - initRect.top;
+
+                // Animate backdrop + clone back to thumbnail position
                 gsap.timeline({ defaults: { ease: 'power3.inOut' } })
                     .to(overlayEl, { backdropFilter: 'blur(0px)', background: 'rgba(8,10,12,0)', duration: d(0.36) }, 0)
-                    .to(clone, { x: 0, y: 0, scale: 1, duration: d(0.6), rotationX: 0, rotationY: 0, boxShadow: '0 10px 30px rgba(2,6,23,0.45)' , onComplete: () => {
+                    .to(clone, { x: finalX, y: finalY, scale: finalScale, duration: d(0.6), rotationX: 0, rotationY: 0, boxShadow: '0 10px 30px rgba(2,6,23,0.45)' , onComplete: () => {
                         overlayEl?.remove();
                         overlayEl = null;
                     }}, 0);
@@ -588,6 +613,8 @@ function setupGsapAnimations() {
                 window.removeEventListener('keydown', onKey);
                 // restore focus to previously focused element (if any)
                 try { lastFocused?.focus?.(); } catch (e) { originalImg.focus?.(); }
+                // restore body scrolling after animation has started
+                setTimeout(() => { document.body.style.overflow = ''; }, d(300));
             }
 
             function onKey(e) { if (e.key === 'Escape') closeLightbox(); }
