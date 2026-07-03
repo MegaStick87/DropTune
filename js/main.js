@@ -28,7 +28,7 @@ const sections = $$('section[id]');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const gsap = window.gsap;
 
-// Registrar plugins de GSAP si están disponibles (evita errores en producción)
+// Registrar plugins de GSAP si están disponibles
 if (gsap) {
     try {
         if (window.Flip && typeof gsap.registerPlugin === 'function') gsap.registerPlugin(window.Flip);
