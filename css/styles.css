@@ -714,6 +714,22 @@ dialog.modal-dialog.pretty-modal-closing::backdrop {
     .theme-toggle { width: 36px; height: 34px; margin-left: 4px; }
     .theme-toggle .theme-icon { width: 18px; height: 18px; }
 }
+
+/* Ensure screenshot stays static on touch devices (use input capability, not width) */
+@media (hover: none), (pointer: coarse) {
+    .screenshot-wrapper { transform: none !important; transition: none !important; will-change: auto !important; opacity: 1 !important; visibility: visible !important; }
+    .screenshot { transform: none !important; transition: none !important; will-change: auto !important; opacity: 1 !important; visibility: visible !important; }
+}
+
+/* Improve rendering stability for screenshot */
+.screenshot, .screenshot-wrapper {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transform: none !important;
+    transition: none !important;
+}
 /* Hero */
 .hero {
     position: relative;

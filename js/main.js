@@ -428,10 +428,10 @@ function setupGsapAnimations() {
         .from('.hero-description', { y: 24, autoAlpha: 0 }, '-=0.35')
         .from('.hero-buttons .btn', { y: 18, autoAlpha: 0, stagger: d(0.08) }, '-=0.35')
         .from('.hero-stats .stat, .hero-stats .stat-divider', { y: 16, autoAlpha: 0, stagger: d(0.07) }, '-=0.35')
-        .from('.screenshot-wrapper', { x: 42, y: 28, rotate: 1.8, autoAlpha: 0, duration: d(1.05) }, '-=0.8');
+        .from('.screenshot-wrapper', { autoAlpha: 0, duration: d(1.05) }, '-=0.8');
 
-    // Keep screenshot visually stable: remove subtle floating loop
-    // (Retain 3D mouse-driven rotation and entry animation.)
+    // Keep screenshot fully static: no tilt, no floating, no entry translation.
+    // Only preserve opacity fade-in for the screenshot.
 
     gsap.to('.hero-badge', {
         y: -4,
@@ -450,10 +450,10 @@ function setupGsapAnimations() {
         hoverTargets.forEach(target => {
             const isButton = target.classList.contains('btn') || target.classList.contains('kofi-button');
 
-            // Botones tienen un desplazamiento mínimo para evitar que suban demasiado
+            // Botones: completamente estáticos (sin desplazamiento). Otros targets mantienen micro-movimiento.
             const enterProps = isButton
-                ? { y: -1, scale: 1.01, duration: d(0.18), overwrite: 'auto' }
-                : { y: -3, scale: 1.02, duration: d(0.24), overwrite: 'auto' };
+                ? { y: 0, scale: 1, duration: d(0.12), overwrite: 'auto' }
+                : { y: -2, scale: 1.02, duration: d(0.24), overwrite: 'auto' };
 
             const leaveProps = { y: 0, scale: 1, duration: d(0.28), overwrite: 'auto' };
 
@@ -468,20 +468,31 @@ function setupGsapAnimations() {
     }
 
     const screenshot = $('.screenshot-wrapper');
+    // Disable any 3D tilt/mouse movement for the screenshot entirely.
     if (screenshot) {
-            window.addEventListener('mousemove', (event) => {
-            const x = (event.clientX / window.innerWidth - 0.5) * 10;
-            const y = (event.clientY / window.innerHeight - 0.5) * 10;
-            gsap.to(screenshot, {
-                rotateY: x,
-                rotateX: -y,
-                transformPerspective: 900,
-                transformOrigin: 'center',
-                    duration: d(0.65),
-                overwrite: 'auto'
-            });
-        }, { passive: true });
+        screenshot.style.opacity = '1';
+        screenshot.style.visibility = 'visible';
+        screenshot.style.transform = 'none';
+        screenshot.style.transition = 'none';
+        screenshot.style.willChange = 'auto';
+        try {
+            if (gsap) {
+                gsap.set(screenshot, { rotation: 0, rotate: 0, x: 0, y: 0, clearProps: 'transform' });
+            }
+        } catch (e) { /* ignore */ }
     }
+
+    // Additionally, if the device is touch-capable, clear any ScrollTrigger instances that target the screenshot.
+    try {
+        const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+        if (isTouch && window.ScrollTrigger) {
+            ScrollTrigger.getAll().forEach(st => {
+                if (st.trigger && st.trigger.matches && st.trigger.matches('.screenshot-wrapper, .screenshot')) {
+                    st.kill();
+                }
+            });
+        }
+    } catch (e) { /* ignore */ }
 
     // Lightbox animado con blur de fondo para la captura (DropTune_1.png)
     function setupScreenshotLightbox() {
