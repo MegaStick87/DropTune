@@ -280,7 +280,11 @@ async function toggleDialog(event, dialogId) {
 }
 
 function showNotification(message) {
-    $('.copy-notification')?.remove();
+    const existing = $('.copy-notification');
+    if (existing) {
+        gsap?.killTweensOf(existing);
+        existing.remove();
+    }
 
     const notification = document.createElement('div');
     notification.className = 'copy-notification';
@@ -290,6 +294,64 @@ function showNotification(message) {
     `;
 
     document.body.appendChild(notification);
+
+    const icon = $('.notification-icon', notification);
+    const text = $('span', notification);
+
+    if (gsap && !reduceMotion) {
+        notification.style.transition = 'background 0.45s ease, border-color 0.45s ease, color 0.45s ease';
+
+        gsap.set(notification, {
+            autoAlpha: 0,
+            xPercent: -50,
+            y: 26,
+            scale: 0.92,
+            filter: 'blur(12px) saturate(1.18)',
+            transformOrigin: '50% 100%'
+        });
+        gsap.set([icon, text], { autoAlpha: 0, y: 6 });
+        gsap.set(icon, { scale: 0.82, rotate: -8 });
+
+        gsap.timeline({ defaults: { overwrite: 'auto' } })
+            .to(notification, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                filter: 'blur(0px) saturate(1)',
+                duration: d(0.54),
+                ease: 'back.out(1.45)'
+            }, 0)
+            .to(icon, {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                rotate: 0,
+                duration: d(0.48),
+                ease: 'back.out(2)'
+            }, 0.08)
+            .to(text, {
+                autoAlpha: 1,
+                y: 0,
+                duration: d(0.36),
+                ease: 'power3.out'
+            }, 0.14);
+
+        setTimeout(() => {
+            gsap.timeline({ defaults: { overwrite: 'auto' }, onComplete: () => notification.remove() })
+                .to([icon, text], { y: -4, autoAlpha: 0, duration: d(0.22), ease: 'power2.in' }, 0)
+                .to(notification, {
+                    y: 18,
+                    scale: 0.96,
+                    autoAlpha: 0,
+                    filter: 'blur(10px) saturate(1.1)',
+                    duration: d(0.34),
+                    ease: 'power3.inOut'
+                }, 0.02);
+        }, 2500);
+
+        return;
+    }
+
     requestAnimationFrame(() => notification.classList.add('show'));
 
     setTimeout(() => {
@@ -356,7 +418,7 @@ function setupScrollIndicator() {
 }
 
 function setupRevealAnimations() {
-    const elements = $$('.demo-card, .feature-card, .credit-card, .tool-card, .download-card, .section-header, .about-header, .tools-section');
+    const elements = $$('.demo-card, .feature-card, .credit-card, .tool-card, .section-header, .about-header, .tools-section');
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
         elements.forEach(element => element.classList.add('animate-in'));
@@ -906,6 +968,209 @@ function setupKofiButtonAnimation() {
             .to(label, { x: 0, duration: d(0.34), ease: 'power3.out' }, 0);
     });
 }
+function setupDownloadSectionAnimation() {
+    if (!gsap || reduceMotion || !window.ScrollTrigger) return;
+
+    const card = $('.download-card');
+    if (!card) return;
+
+    const title = $('.download-title', card);
+    const description = $('.download-description', card);
+    const infoItems = $$('.info-item', card);
+    const button = $('.btn-download', card);
+    const buttonIcon = $('.btn-icon', button);
+    const buttonText = $('.btn-text', button);
+    const targets = [title, description, ...infoItems, button].filter(Boolean);
+
+    gsap.set(card, {
+        autoAlpha: 0,
+        y: 46,
+        scale: 0.965,
+        filter: 'blur(16px)',
+        clipPath: 'inset(9% 7% 9% 7% round 22px)',
+        '--download-card-glow': '0'
+    });
+
+    gsap.set(targets, {
+        autoAlpha: 0,
+        y: 22,
+        filter: 'blur(10px)'
+    });
+
+    gsap.set(infoItems, {
+        scale: 0.94,
+        rotateX: 7,
+        transformPerspective: 900,
+        transformOrigin: '50% 80%'
+    });
+
+    if (button) {
+        gsap.set(button, {
+            scale: 0.94
+        });
+    }
+
+    ScrollTrigger.create({
+        trigger: card,
+        start: 'top 78%',
+        once: true,
+        onEnter: () => {
+            const timeline = gsap.timeline({
+                defaults: { overwrite: 'auto' },
+                onComplete: () => {
+                    card.classList.add('animate-in');
+                    gsap.set([card, ...targets], { clearProps: 'transform,filter,opacity,visibility,clipPath' });
+                    gsap.set(infoItems, { clearProps: 'rotateX,transformPerspective,transformOrigin' });
+                }
+            });
+
+            timeline
+                .to(card, {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: 'blur(0px)',
+                    clipPath: 'inset(0% 0% 0% 0% round 22px)',
+                    duration: d(0.96),
+                    ease: 'power4.out'
+                }, 0)
+                .to(card, {
+                    '--download-card-glow': '1',
+                    duration: d(0.72),
+                    ease: 'power2.out',
+                    yoyo: true,
+                    repeat: 1
+                }, 0.08)
+                .to([title, description], {
+                    autoAlpha: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    duration: d(0.72),
+                    ease: 'power3.out',
+                    stagger: d(0.075)
+                }, 0.18)
+                .to(infoItems, {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    rotateX: 0,
+                    filter: 'blur(0px)',
+                    duration: d(0.72),
+                    ease: 'back.out(1.25)',
+                    stagger: d(0.08)
+                }, 0.34)
+                .to(button, {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: 'blur(0px)',
+                    duration: d(0.7),
+                    ease: 'back.out(1.55)'
+                }, 0.62)
+                .to(buttonIcon, {
+                    y: -3,
+                    duration: d(0.24),
+                    ease: 'power2.out',
+                    yoyo: true,
+                    repeat: 1
+                }, 0.88)
+                .to(buttonText, {
+                    x: 2,
+                    duration: d(0.26),
+                    ease: 'power2.out',
+                    yoyo: true,
+                    repeat: 1
+                }, 0.9);
+        }
+    });
+}
+function setupFastScrollDisarray() {
+    if (!gsap || reduceMotion) return;
+
+    const selector = [
+        '.hero-badge',
+        '.title-line',
+        '.hero-description',
+        '.hero-buttons .btn',
+        '.hero-stats .stat',
+        '.screenshot-wrapper',
+        '.section-header.animate-in',
+        '.about-header.animate-in',
+        '.demo-card.animate-in',
+        '.feature-card.animate-in',
+        '.credit-card.animate-in',
+        '.tool-card.animate-in',
+        '.download-card.animate-in'
+    ].join(', ');
+
+    let lastY = window.scrollY;
+    let lastTime = performance.now();
+    let lastBurst = 0;
+
+    const isVisible = (element) => {
+        if (!element || element.closest('.video-demo-overlay')) return false;
+        const rect = element.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.bottom > 28 && rect.top < window.innerHeight - 28;
+    };
+
+    const playDisarray = (direction, intensity) => {
+        const now = performance.now();
+        if (now - lastBurst < 145) return;
+        lastBurst = now;
+
+        const visibleTargets = $$(selector).filter(isVisible).slice(0, 24);
+        if (!visibleTargets.length) return;
+
+        visibleTargets.forEach((element, index) => {
+            const isHeroTitle = element.classList.contains('title-line');
+            const isLargeVisual = element.classList.contains('screenshot-wrapper') || element.classList.contains('download-card');
+            const strength = isLargeVisual ? 0.72 : 1;
+            const drift = gsap.utils.random(7, 18) * intensity * strength;
+            const wobble = gsap.utils.random(-13, 13) * intensity * strength;
+            const rotate = gsap.utils.random(-2.4, 2.4) * intensity * (isHeroTitle ? 0.45 : strength);
+            const delay = Math.min(0.08, index * 0.006);
+
+            gsap.killTweensOf(element);
+            gsap.timeline({ defaults: { overwrite: 'auto' } })
+                .to(element, {
+                    x: wobble,
+                    y: direction * drift,
+                    rotate,
+                    scale: 1 + gsap.utils.random(-0.012, 0.018) * intensity,
+                    duration: d(0.13),
+                    ease: 'power2.out'
+                }, delay)
+                .to(element, {
+                    x: 0,
+                    y: 0,
+                    rotate: 0,
+                    scale: 1,
+                    duration: d(0.78),
+                    ease: 'elastic.out(1, 0.62)',
+                    clearProps: 'transform'
+                }, '+=0.015');
+        });
+    };
+
+    window.addEventListener('scroll', () => {
+        if ($('.video-demo-overlay')) return;
+
+        const now = performance.now();
+        const currentY = window.scrollY;
+        const deltaY = currentY - lastY;
+        const deltaTime = Math.max(16, now - lastTime);
+        const speed = Math.abs(deltaY / deltaTime);
+
+        lastY = currentY;
+        lastTime = now;
+
+        if (speed < 1.05) return;
+
+        const direction = Math.sign(deltaY) || 1;
+        const intensity = gsap.utils.clamp(0.38, 1, (speed - 0.75) / 2.4);
+        playDisarray(direction, intensity);
+    }, { passive: true });
+}
 function setupDemoVideos() {
     const cards = $$('.demo-card');
     if (!cards.length) return;
@@ -946,22 +1211,68 @@ function setupDemoVideos() {
         if (!overlay) return;
 
         const current = overlay;
+        const trigger = activeTrigger;
+        const shell = $('.video-demo-shell', current);
+        const head = $('.video-demo-head', current);
+        const frame = $('.video-demo-frame', current);
+        const closeButton = $('.video-demo-close', current);
+        const thumb = trigger ? $('.demo-thumb', trigger) : null;
+
         overlay = null;
+        activeTrigger = null;
         document.body.style.overflow = '';
         window.removeEventListener('keydown', handleKeydown);
 
-        if (gsap && !reduceMotion) {
-            gsap.timeline({ defaults: { ease: 'power3.inOut' }, onComplete: () => current.remove() })
-                .to($('.video-demo-shell', current), { y: 24, scale: 0.96, autoAlpha: 0, duration: d(0.32) }, 0)
-                .to(current, { autoAlpha: 0, backdropFilter: 'blur(0px)', background: 'rgba(4, 8, 12, 0)', duration: d(0.36) }, 0);
+        const restoreFocus = () => trigger?.focus?.();
+
+        if (gsap && !reduceMotion && shell && frame) {
+            const thumbRect = thumb?.getBoundingClientRect();
+            const frameRect = frame.getBoundingClientRect();
+            const canReturnToThumb = thumbRect
+                && thumbRect.width > 0
+                && thumbRect.height > 0
+                && thumbRect.bottom > 0
+                && thumbRect.top < window.innerHeight
+                && thumbRect.right > 0
+                && thumbRect.left < window.innerWidth;
+
+            const timeline = gsap.timeline({
+                defaults: { overwrite: 'auto' },
+                onComplete: () => {
+                    current.remove();
+                    restoreFocus();
+                }
+            });
+
+            timeline
+                .to([head, closeButton], { y: -10, autoAlpha: 0, duration: d(0.24), ease: 'power2.in' }, 0)
+                .to(current, { backdropFilter: 'blur(0px)', background: 'rgba(4, 8, 12, 0)', duration: d(0.52), ease: 'power3.inOut' }, 0.05);
+
+            if (canReturnToThumb) {
+                timeline
+                    .to(frame, {
+                        x: thumbRect.left + thumbRect.width / 2 - (frameRect.left + frameRect.width / 2),
+                        y: thumbRect.top + thumbRect.height / 2 - (frameRect.top + frameRect.height / 2),
+                        scaleX: thumbRect.width / frameRect.width,
+                        scaleY: thumbRect.height / frameRect.height,
+                        borderRadius: getComputedStyle(thumb).borderRadius || '16px',
+                        boxShadow: '0 12px 34px rgba(0, 0, 0, 0.22)',
+                        duration: d(0.74),
+                        ease: 'power4.inOut'
+                    }, 0)
+                    .to(shell, { y: -6, scale: 0.992, autoAlpha: 0.96, duration: d(0.36), ease: 'sine.inOut' }, 0)
+                    .to(frame, { autoAlpha: 0, duration: d(0.16), ease: 'power2.out' }, d(0.62))
+                    .to(current, { autoAlpha: 0, duration: d(0.18), ease: 'power2.out' }, d(0.64));
+            } else {
+                timeline
+                    .to(shell, { y: 28, scale: 0.94, autoAlpha: 0, duration: d(0.42), ease: 'power3.inOut' }, 0)
+                    .to(current, { autoAlpha: 0, duration: d(0.42), ease: 'power2.out' }, 0.05);
+            }
         } else {
             current.remove();
+            restoreFocus();
         }
-
-        activeTrigger?.focus?.();
-        activeTrigger = null;
     }
-
     function handleKeydown(event) {
         if (event.key === 'Escape') closeDemo();
     }
@@ -1101,3 +1412,5 @@ setupScreenshotEasterEgg();
 setupDemoVideos();
 setupGsapAnimations();
 setupKofiButtonAnimation();
+setupDownloadSectionAnimation();
+setupFastScrollDisarray();
