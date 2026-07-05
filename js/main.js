@@ -870,24 +870,6 @@ function setupGsapAnimations() {
             ticking = false;
         });
     }, { passive: true });
-
-        // CTA and enhancements
-        function setupGsapEnhancements() {
-            try {
-                // Background subtle animated gradient
-                let bg = document.querySelector('.bg-animated');
-                if (!bg) {
-                    bg = document.createElement('div');
-                    bg.className = 'bg-animated';
-                    document.body.insertBefore(bg, document.body.firstChild);
-
-                    gsap.to(bg, { '--gx': '100%', duration: 20, ease: 'sine.inOut', repeat: -1, yoyo: true });
-                    gsap.to(bg, { opacity: 0.08, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-                }
-            } catch (e) { console.warn('GSAP enhancements failed', e); }
-        }
-
-        setupGsapEnhancements();
 }
 
 

@@ -363,17 +363,6 @@ a {
 
 body { background: var(--bg); color: var(--text); }
 
-/* Animated background gradient (very subtle) */
-.bg-animated {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: radial-gradient(1200px 600px at var(--gx, 10%) 30%, rgba(41,171,224,0.08), transparent 20%), radial-gradient(1000px 500px at 80% 70%, rgba(41,171,224,0.04), transparent 20%);
-    mix-blend-mode: overlay;
-    opacity: 0.06;
-}
-
 dialog.modal-dialog {
     position: fixed;
     top: 50%;
