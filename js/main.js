@@ -164,6 +164,16 @@ function initTheme() {
 // Initialize theme after DOM loaded
 window.addEventListener('DOMContentLoaded', initTheme);
 
+function updateVisualViewportHeight() {
+    const height = window.visualViewport?.height || window.innerHeight;
+    document.documentElement.style.setProperty('--visual-viewport-height', `${height}px`);
+}
+
+updateVisualViewportHeight();
+window.addEventListener('resize', updateVisualViewportHeight, { passive: true });
+window.addEventListener('orientationchange', updateVisualViewportHeight, { passive: true });
+window.visualViewport?.addEventListener('resize', updateVisualViewportHeight, { passive: true });
+window.visualViewport?.addEventListener('scroll', updateVisualViewportHeight, { passive: true });
 function updateNavbar() {
     if (!navbar) return;
     navbar.style.boxShadow = window.scrollY > 100
