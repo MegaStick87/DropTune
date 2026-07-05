@@ -1,6 +1,6 @@
 # DropTune
 
-DropTune es una landing page creada para presentar una herramienta de descarga multimedia con una experiencia visual mucho más cuidada, moderna y expresiva. La página no busca sentirse como una ficha técnica plana, sino como una nueva experiencia UI alrededor del proyecto: una interfaz con movimiento, profundidad, transiciones suaves y una dirección visual pensada para que DropTune se perciba más pulido, vivo y memorable.
+DropTune es una página web creada para presentar una herramienta de descarga multimedia con una UI lo más cuidada posible. La página no busca sentirse como una ficha técnica plana, sino como una nueva experiencia UI alrededor del proyecto: una interfaz con movimiento, profundidad, transiciones suaves y una dirección visual pensada para que DropTune se perciba más pulido, vivo y memorable.
 
 Esta versión de la página fue trabajada por MegaStick con un enfoque fuerte en UI/UX, animaciones y presentación visual. Gran parte del esfuerzo estuvo en hacer que cada sección tuviera una entrada más orgánica, que los modales se sintieran fluidos, que los botones respondieran con microinteracciones y que la página completa tuviera una personalidad visual más elegante.
 
