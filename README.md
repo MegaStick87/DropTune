@@ -1,26 +1,26 @@
 # DropTune
 
-DropTune es una página web creada para presentar una herramienta de descarga multimedia con una UI lo más cuidada posible. La página no busca sentirse como una ficha técnica plana, sino como una nueva experiencia UI alrededor del proyecto: una interfaz con movimiento, profundidad, transiciones suaves y una dirección visual pensada para que DropTune se perciba más pulido, vivo y memorable.
+DropTune es una landing page creada para presentar una herramienta de descarga multimedia con una experiencia visual mucho mÃ¡s cuidada, moderna y expresiva. La pÃ¡gina no busca sentirse como una ficha tÃ©cnica plana, sino como una nueva experiencia UI alrededor del proyecto: una interfaz con movimiento, profundidad, transiciones suaves y una direcciÃ³n visual pensada para que DropTune se perciba mÃ¡s pulido, vivo y memorable.
 
-Esta versión de la página fue trabajada por MegaStick con un enfoque fuerte en UI/UX, animaciones y presentación visual. Gran parte del esfuerzo estuvo en hacer que cada sección tuviera una entrada más orgánica, que los modales se sintieran fluidos, que los botones respondieran con microinteracciones y que la página completa tuviera una personalidad visual más elegante.
+Esta versiÃ³n de la pÃ¡gina fue trabajada por MegaStick con un enfoque fuerte en UI/UX, animaciones y presentaciÃ³n visual. Gran parte del esfuerzo estuvo en hacer que cada secciÃ³n tuviera una entrada mÃ¡s orgÃ¡nica, que los modales se sintieran fluidos, que los botones respondieran con microinteracciones y que la pÃ¡gina completa tuviera una personalidad visual mÃ¡s elegante.
 
 ## Nueva experiencia UI
 
-La intención principal fue construir una experiencia visual renovada para DropTune. No se trató solo de acomodar texto e imágenes, sino de crear una interfaz que transmitiera mejor la idea del programa: simple, directa, limpia y con suficiente detalle visual para sentirse especial.
+La intenciÃ³n principal fue construir una experiencia visual renovada para DropTune. No se tratÃ³ solo de acomodar texto e imÃ¡genes, sino de crear una interfaz que transmitiera mejor la idea del programa: simple, directa, limpia y con suficiente detalle visual para sentirse especial.
 
 La UI fue pensada para destacar:
 
-- Una presentación más moderna y clara del producto.
-- Animaciones suaves que acompañan al usuario sin saturar.
-- Secciones con jerarquía visual fuerte y buen ritmo de lectura.
-- Modales con transiciones cuidadas, blur y movimiento orgánico.
+- Una presentaciÃ³n mÃ¡s moderna y clara del producto.
+- Animaciones suaves que acompaÃ±an al usuario sin saturar.
+- Secciones con jerarquÃ­a visual fuerte y buen ritmo de lectura.
+- Modales con transiciones cuidadas, blur y movimiento orgÃ¡nico.
 - Botones, tarjetas y elementos interactivos con feedback visual.
-- Adaptación a modo claro y modo oscuro.
-- Una experiencia responsive que mantiene la estética en escritorio y móvil.
+- AdaptaciÃ³n a modo claro y modo oscuro.
+- Una experiencia responsive que mantiene la estÃ©tica en escritorio y mÃ³vil.
 
 ## Animaciones con GSAP
 
-GSAP es una parte central de la experiencia visual de esta página. Se usó para darle vida a la interfaz con animaciones más precisas, fluidas y elegantes que las transiciones básicas de CSS.
+GSAP es una parte central de la experiencia visual de esta pÃ¡gina. Se usÃ³ para darle vida a la interfaz con animaciones mÃ¡s precisas, fluidas y elegantes que las transiciones bÃ¡sicas de CSS.
 
 Entre los detalles animados se incluyen:
 
@@ -28,41 +28,41 @@ Entre los detalles animados se incluyen:
 - Animaciones de scroll para revelar secciones con profundidad.
 - Navbar con entrada tipo glass/liquid.
 - Cards y bloques de contenido con apariciones escalonadas.
-- Modales con aperturas y cierres más orgánicos.
-- Demos de vídeo con transición desde la tarjeta hacia el reproductor.
-- Cierre del vídeo regresando visualmente a su miniatura.
-- Botón de Ko-fi con microinteracciones suaves.
+- Modales con aperturas y cierres mÃ¡s orgÃ¡nicos.
+- Demos de vÃ­deo con transiciÃ³n desde la tarjeta hacia el reproductor.
+- Cierre del vÃ­deo regresando visualmente a su miniatura.
+- BotÃ³n de Ko-fi con microinteracciones suaves.
 - Toast de Discord con entrada/salida usando blur y rebote sutil.
-- Sección de descarga con animación propia al llegar al apartado.
+- SecciÃ³n de descarga con animaciÃ³n propia al llegar al apartado.
 
-El objetivo fue que el movimiento se sintiera hermoso, pero también coherente: cada animación intenta reforzar la acción que está ocurriendo, no solo decorar.
+El objetivo fue que el movimiento se sintiera hermoso, pero tambiÃ©n coherente: cada animaciÃ³n intenta reforzar la acciÃ³n que estÃ¡ ocurriendo, no solo decorar.
 
-## Dirección visual
+## DirecciÃ³n visual
 
-La identidad visual de DropTune combina alto contraste, superficies limpias, detalles glass, sombras suaves y acentos azules. El resultado busca sentirse moderno, rápido y agradable, manteniendo el foco en lo importante: explicar qué es DropTune, mostrarlo en acción y llevar al usuario hacia la descarga.
+La identidad visual de DropTune combina alto contraste, superficies limpias, detalles glass, sombras suaves y acentos azules. El resultado busca sentirse moderno, rÃ¡pido y agradable, manteniendo el foco en lo importante: explicar quÃ© es DropTune, mostrarlo en acciÃ³n y llevar al usuario hacia la descarga.
 
-Se trabajó especialmente en:
+Se trabajÃ³ especialmente en:
 
-- Títulos con presencia visual fuerte.
+- TÃ­tulos con presencia visual fuerte.
 - Gradientes aplicados de forma puntual.
 - Tarjetas con profundidad y bordes sutiles.
-- Modales más elegantes y fáciles de leer.
-- Iconografía integrada al contexto de cada sección.
+- Modales mÃ¡s elegantes y fÃ¡ciles de leer.
+- IconografÃ­a integrada al contexto de cada secciÃ³n.
 - Dark mode con ajustes de contraste para textos, iconos y componentes.
 
 ## Enfoque de experiencia de usuario
 
-La página está diseñada para que el usuario entienda rápidamente el valor de DropTune. La navegación es directa, las secciones están organizadas por prioridad y las animaciones ayudan a guiar la atención hacia los elementos clave.
+La pÃ¡gina estÃ¡ diseÃ±ada para que el usuario entienda rÃ¡pidamente el valor de DropTune. La navegaciÃ³n es directa, las secciones estÃ¡n organizadas por prioridad y las animaciones ayudan a guiar la atenciÃ³n hacia los elementos clave.
 
-El resultado intenta equilibrar dos cosas: que la página sea funcional y clara, pero también que se sienta bonita, cuidada y con personalidad.
+El resultado intenta equilibrar dos cosas: que la pÃ¡gina sea funcional y clara, pero tambiÃ©n que se sienta bonita, cuidada y con personalidad.
 
-## Créditos de la experiencia visual
+## CrÃ©ditos de la experiencia visual
 
-La experiencia UI, la dirección visual de la página, las animaciones con GSAP, los ajustes responsive y la integración de microinteracciones fueron trabajados por MegaStick.
+La experiencia UI, la direcciÃ³n visual de la pÃ¡gina, las animaciones con GSAP, los ajustes responsive y la integraciÃ³n de microinteracciones fueron trabajados por MegaStick.
 
-La idea fue llevar la presentación de DropTune a un nivel más refinado, con una página que no solo informe, sino que también se sienta agradable de explorar.
+La idea fue llevar la presentaciÃ³n de DropTune a un nivel mÃ¡s refinado, con una pÃ¡gina que no solo informe, sino que tambiÃ©n se sienta agradable de explorar.
 
-## Tecnologías empleadas
+## TecnologÃ­as empleadas
 
 - HTML5
 - CSS3
@@ -70,9 +70,9 @@ La idea fue llevar la presentación de DropTune a un nivel más refinado, con un
 - GSAP
 - ScrollTrigger
 - PrettyModal
-- Diseño responsive
+- DiseÃ±o responsive
 - Animaciones UI orientadas a experiencia visual moderna
 
 ## Objetivo
 
-DropTune busca comunicar una idea sencilla: descargar música y vídeos sin complicaciones. Esta landing page intenta acompañar esa idea con una interfaz igual de directa, pero mucho más expresiva, fluida y visualmente atractiva.
+DropTune busca comunicar una idea sencilla: descargar mÃºsica y vÃ­deos sin complicaciones. Esta landing page intenta acompaÃ±ar esa idea con una interfaz igual de directa, pero mucho mÃ¡s expresiva, fluida y visualmente atractiva.
