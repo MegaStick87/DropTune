@@ -376,8 +376,7 @@ function setupRevealAnimations() {
             }
 
             return [target];
-        };
-
+        };
 elements.forEach((target, index) => {
             const targets = getRevealTargets(target);
             const animatesChildren = !targets.includes(target);
