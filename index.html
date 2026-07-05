@@ -21,7 +21,7 @@
     <title>DropTune | yt-dlp UI</title>
     
     <!-- SEO Meta Tags -->
-    <meta name="description" content="DropTune es una interfaz gráfica gratuita para descargar música y videos de YouTube, Vimeo, SoundCloud y más. Sin publicidad, sin comandos, sin complicaciones.">
+    <meta name="description" content="DropTune es una interfaz gráfica gratuita para descargar música y videos de YouTube, Vimeo, SoundCloud y más. Sin publicidad, sin comandos.">
     <meta name="keywords" content="descargar música, descargar videos, youtube downloader, yt-dlp gui, mp3 downloader, mp4 downloader, gratis, sin publicidad">
     <meta name="author" content="MegaStick & AndyGuss">
     <meta name="robots" content="index, follow">
@@ -73,6 +73,7 @@
                     <span class="nav-title">DropTune</span>
                 </div>
                 <div class="nav-links">
+                    <a href="#demos" class="nav-link">Demo</a>
                     <a href="#features" class="nav-link">Características</a>
                     <a href="#about" class="nav-link">Acerca de</a>
                     <a href="#download" class="nav-link nav-link-primary">Descargar</a>
@@ -104,7 +105,7 @@
                 <span class="title-line title-gradient">sin complicaciones</span>
             </h1>
             <p class="hero-description">
-                Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, sin complicaciones en Windows.
+                Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, solo para <strong>Windows</strong>.
             </p>
             <div class="hero-buttons">
                 <a href="https://www.mediafire.com/file/u0gcgbspg8qj7no/DropTune+v1.3+-+FINAL+BUILD.zip/file"
@@ -139,6 +140,41 @@
         </div>
     </section>
 
+
+    <!-- Demo Videos Section -->
+    <section class="demos" id="demos">
+        <div class="section-container">
+            <div class="section-header demo-header">
+                <span class="section-tag">Demos</span>
+                <h2 class="section-title">Mira DropTune en acción</h2>
+                <p class="section-description">Dos video demos que muestran el programa en funcionamiento.</p>
+            </div>
+            <div class="demo-grid">
+                <button class="demo-card" type="button" data-video-id="Y4NvrzJzb-M" data-video-title="Demo de música" data-video-kind="Música">
+                    <span class="demo-thumb">
+                        <img src="https://i.ytimg.com/vi/Y4NvrzJzb-M/hqdefault.jpg" alt="Demo de descarga de música en DropTune" loading="lazy">
+                        <span class="demo-play" aria-hidden="true"></span>
+                    </span>
+                    <span class="demo-content">
+                        <span class="demo-kicker">Demo 01</span>
+                        <strong>Descarga de música</strong>
+                        <span>Obtén tus canciones en la máxima calidad MP3 de forma totalmente automática.</span>
+                    </span>
+                </button>
+                <button class="demo-card" type="button" data-video-id="c_9NtiaPMJE" data-video-title="Demo de video" data-video-kind="Video">
+                    <span class="demo-thumb">
+                        <img src="https://i.ytimg.com/vi/c_9NtiaPMJE/hqdefault.jpg" alt="Demo de descarga de video en DropTune" loading="lazy">
+                        <span class="demo-play" aria-hidden="true"></span>
+                    </span>
+                    <span class="demo-content">
+                        <span class="demo-kicker">Demo 02</span>
+                        <strong>Descarga de video</strong>
+                        <span>Obtén tus videos en la calidad que más necesites.</span>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </section>
     <!-- Features Section -->
     <section class="features" id="features">
         <div class="section-container">
@@ -176,7 +212,7 @@
                         <img src="img/playlist_icon.png" alt="Playlist" class="feature-icon">
                     </div>
                     <h3 class="feature-title">Playlists Completas</h3>
-                    <p class="feature-description">Descarga listas de reproducción enteras con un solo clic.</p>
+                    <p class="feature-description">Descarga listas de reproducción enteras con un solo clic. ¿No es genial?</p>
                 </div>
                 <div class="feature-card">
                     <div class="card-shine"></div>
@@ -186,7 +222,7 @@
                         <img src="img/no_ads_icon.png" alt="Sin Anuncios" class="feature-icon">
                     </div>
                     <h3 class="feature-title">Sin Publicidad</h3>
-                    <p class="feature-description">Experiencia limpia y directa. Sin pop-ups, sin esperas, sin molestias, nada de esas porquerías como en otras partes.</p>
+                    <p class="feature-description">Experiencia directa. Sin ads, sin esperas, sin molestias, nada de esas porquerías como en otras partes.</p>
                 </div>
             </div>
         </div>
@@ -199,7 +235,7 @@
                 <span class="section-tag">Nuestra Historia</span>
                 <h2 class="section-title">¿Por qué creamos DropTune?</h2>
                 <p class="section-description">
-                    Fue más que nada por una <strong>necesidad que tuvimos</strong>. Las páginas web que descargan música o vídeos regularmente están llenas de publicidad molesta, o simplemente no descargan el video en la calidad correcta o de forma correcta, pues nos cansamos de eso y decidimos hacer esta herramienta. :3
+                    Fue más que nada por una <strong>necesidad que tuvimos</strong>. Las páginas web que descargan música o vídeos regularmente están llenas de publicidad, o simplemente no descargan el video en la calidad y metadatos correctos, pues nos cansamos de eso y decidimos hacer esta herramienta, intenté hacer que el UI del programa fuera lo más limpia posible, aunque quizá más a futuro puede mejorar aún más, todo fue programado en Python usando PyQT6. :3
                 </p>
             </div>
             
@@ -218,7 +254,7 @@
                             </div>
                         </div>
                         <p class="credit-description">
-                            Creador del proyecto original con archivos .bat que permitían descargar música y videos mediante línea de comandos. La base de todo lo que es DropTune hoy, era bastante sólido los 2 .bats que permitían la descarga de música y vídeos. ^^
+                            Creador de la idea original pero con archivos ".bat" separados que permitían descargar música y videos mediante línea de comandos. La base de todo lo que es DropTune hoy, era bastante sólido los 2 .bats que permitían la descarga de música y vídeos. ^^
                         </p>
                         <div class="credit-social">
                             <a href="https://www.youtube.com/@AndygussXD" target="_blank" class="social-link">
@@ -243,7 +279,7 @@
                             </div>
                         </div>
                         <p class="credit-description">
-                            Transformó el proyecto de línea de comandos a una interfaz gráfica mucho más amigable. Agregó múltiples funcionalidades, optimizaciones y mejoras de experiencia de usuario, a su vez de que es la primera vez que se lleva esto a una interfaz gráfica al menos de momento en Windows.
+                            Transformó a yt-dlp que es en línea de comandos a una interfaz gráfica mucho más amigable. Y que es la primera vez que se lleva esto a una interfaz gráfica al menos de momento en <strong>Windows</strong>.
                         </p>
                         <div class="credit-social">
                             <a href="https://www.youtube.com/@MegaStick" target="_blank" class="social-link">
@@ -296,7 +332,7 @@
             <div class="download-card">
                 <div class="download-content">
                     <h2 class="download-title">Listo para descargar</h2>
-                    <p class="download-description">Obtén DropTune gratis y comienza a descargar tu música y videos favoritos.</p>
+                    <p class="download-description">Obtén DropTune y comienza a descargar tu música y videos favoritos.</p>
                     <div class="download-info">
                         <div class="info-item">
                             <span class="info-label">Versión</span>
@@ -355,28 +391,28 @@
     <dialog id="dialog-details" class="modal-dialog">
         <div class="modal-card">
             <button class="modal-close" type="button" aria-label="Cerrar" onclick="prettyModal.close('dialog-details')">✕</button>
-            <h2 class="modal-title">Pensado para ser rápido :D</h2>
-            <p class="modal-text">Para cuando quieres guardar contenido sin abrir mil pestañas ni pelearte con anuncios. El flujo se mantiene directo, entendible y listo para repetirlo cuantas veces haga falta.</p>
+            <h2 class="modal-title">Lo importante está en tu equipo :D</h2>
+            <p class="modal-text">DropTune funciona como una interfaz para yt-dlp y FFmpeg. No intenta reinventar la descarga: hace más cómodo usar herramientas sólidas desde una interfaz clara.</p>
             <div class="modal-grid">
                 <div class="modal-feature">
                     <span>✓</span>
                     <div>
-                        <strong>Descargas instantáneas</strong>
-                        <p>Inicia la descarga en un solo clic, sin ningún tipo de publicidad intrusiva.</p>
+                        <strong>Motor confiable</strong>
+                        <p>Las descargas se apoyan en yt-dlp y la conversión de formatos usa FFmpeg, herramientas conocidas y mantenidas por sus comunidades.</p>
                     </div>
                 </div>
                 <div class="modal-feature">
                     <span>✓</span>
                     <div>
-                        <strong>Calidad configurable</strong>
-                        <p>Elige MP3 o MP4 en múltiples resoluciones, en la opción de "mejor posible" puede descargar hasta 8k @60fps y de forma correcta.</p>
+                        <strong>Privacidad local</strong>
+                        <p>Tus preferencias se guardan en tu equipo. No se guarda historial de descargas ni URLs, y las cookies nunca se envían a servidores externos.</p>
                     </div>
                 </div>
                 <div class="modal-feature">
                     <span>✓</span>
                     <div>
-                        <strong>Interfaz amigable</strong>
-                        <p>Se trato de hacer una experiencia visual coherente y lo más sencilla posible, osea directo al grano.</p>
+                        <strong>Uso personal y transparente</strong>
+                        <p>DropTune está pensado para guardar contenido de forma personal: escuchar sin conexión, ver después o conservar copias para tu propio uso. Tú decides qué descargas y cómo lo usas. ;p</p>
                     </div>
                 </div>
             </div>
@@ -387,7 +423,7 @@
         </div>
     </dialog>
 
-    <!-- GSAP Libraries for PrettyModal -->
+    <!-- GSAP Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/Flip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
