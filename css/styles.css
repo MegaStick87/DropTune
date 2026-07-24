@@ -2229,6 +2229,34 @@ dialog.modal-dialog.pretty-modal-closing::backdrop {
 
 }
 
+@media (max-width: 680px) {
+    .navbar {
+        padding: 10px 14px;
+    }
+
+    .nav-container {
+        gap: 14px;
+    }
+
+    .nav-links {
+        gap: 4px;
+        margin-left: auto;
+    }
+
+    .nav-link:not(.nav-link-primary) {
+        display: none;
+    }
+
+    .nav-link-primary {
+        padding: 8px 12px;
+        white-space: nowrap;
+    }
+
+    .theme-toggle {
+        margin-left: 2px;
+    }
+}
+
 @media (max-width: 480px) {
     .navbar-glass {
         top: 10px;
