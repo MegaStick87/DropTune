@@ -1,13 +1,13 @@
 <!--
 
- _____ ______   _______   ________  ________  ________  _________  ___  ________  ___  __       
-|\   _ \  _   \|\  ___ \ |\   ____\|\   __  \|\   ____\|\___   ___\\  \|\   ____\|\  \|\  \     
-\ \  \\\__\ \  \ \   __/|\ \  \___|\ \  \|\  \ \  \___|\|___ \  \_\ \  \ \  \___|\ \  \/  /|_   
- \ \  \\|__| \  \ \  \_|/_\ \  \  __\ \   __  \ \_____  \   \ \  \ \ \  \ \  \    \ \   ___  \  
-  \ \  \    \ \  \ \  \_|\ \ \  \|\  \ \  \ \  \|____|\  \   \ \  \ \ \  \ \  \____\ \  \\ \  \ 
+ _____ ______   _______   ________  ________  ________  _________  ___  ________  ___  __
+|\   _ \  _   \|\  ___ \ |\   ____\|\   __  \|\   ____\|\___   ___\\  \|\   ____\|\  \|\  \
+\ \  \\\__\ \  \ \   __/|\ \  \___|\ \  \|\  \ \  \___|\|___ \  \_\ \  \ \  \___|\ \  \/  /|_
+ \ \  \\|__| \  \ \  \_|/_\ \  \  __\ \   __  \ \_____  \   \ \  \ \ \  \ \  \    \ \   ___  \
+  \ \  \    \ \  \ \  \_|\ \ \  \|\  \ \  \ \  \|____|\  \   \ \  \ \ \  \ \  \____\ \  \\ \  \
    \ \__\    \ \__\ \_______\ \_______\ \__\ \__\____\_\  \   \ \__\ \ \__\ \_______\ \__\\ \__\
     \|__|     \|__|\|_______|\|_______|\|__|\|__|\_________\   \|__|  \|__|\|_______|\|__| \|__|
-                                                \|_________|                                    
+                                                \|_________|
 
 
                                         ARCHIVO HTML.
@@ -19,43 +19,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DropTune | yt-dlp UI</title>
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="DropTune es una interfaz gráfica gratuita para descargar música y vídeos de YouTube, Vimeo, SoundCloud y más. Sin publicidad, sin comandos.">
     <meta name="keywords" content="descargar música, descargar vídeos, youtube downloader, yt-dlp gui, mp3 downloader, mp4 downloader, gratis, sin publicidad">
     <meta name="author" content="MegaStick & AndyGuss">
     <meta name="robots" content="index, follow">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://megastick.github.io/DropTune/">
     <meta property="og:title" content="DropTune - Descarga Música y Vídeos Gratis">
     <meta property="og:description" content="Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, sin complicaciones.">
-    <meta property="og:image" content="https://megastick.github.io/DropTune/img/droptune_icon.png">
+    <meta property="og:image" content="https://megastick.github.io/DropTune/img/DropTune_Icon_HighRes.png">
     <meta property="og:locale" content="es_MX">
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://megastick.github.io/DropTune/">
     <meta name="twitter:title" content="DropTune - Descarga Música y Vídeos Gratis">
     <meta name="twitter:description" content="Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, sin complicaciones.">
-    <meta name="twitter:image" content="https://megastick.github.io/DropTune/img/droptune_icon.png">
-    
+    <meta name="twitter:image" content="https://megastick.github.io/DropTune/img/DropTune_Icon_HighRes.png">
+
     <!-- Theme Color -->
     <meta name="theme-color" content="#29ABE0">
     <meta name="msapplication-TileColor" content="#0D1117">
-    
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/x-icon" href="img/droptune_icon.png">
-    <link rel="apple-touch-icon" href="img/droptune_icon.png">
+    <link rel="icon" type="image/x-icon" href="img/DropTune_Icon_HighRes.png">
+    <link rel="apple-touch-icon" href="img/DropTune_Icon_HighRes.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://megastick.github.io/DropTune/">
 </head>
 <body>
-<!-- Navegación -->
+<!-- Navbar -->
     <glass-element class="navbar-glass"
         responsive
         base-width="1080"
@@ -69,20 +69,21 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-brand">
-                    <img src="img/droptune_icon.png" alt="DropTune" class="nav-logo">
+                    <img src="img/DropTune_Icon_HighRes.png" alt="DropTune" class="nav-logo">
                     <span class="nav-title">DropTune</span>
                 </div>
                 <div class="nav-links">
                     <a href="#demos" class="nav-link">Demo</a>
                     <a href="#features" class="nav-link">Características</a>
                     <a href="#about" class="nav-link">Acerca de</a>
+                    <a href="#nodejs" class="nav-link nav-link-node">Node.js</a>
                     <a href="#download" class="nav-link nav-link-primary">Descargar</a>
                     <button class="theme-toggle" aria-label="Cambiar tema" title="Cambiar tema">
-                        <!-- Moon (remix) -->
+
                         <svg class="theme-icon icon-moon" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14">
                             <path fill="currentColor" fill-rule="evenodd" d="M7.75.75a.75.75 0 0 0-1.5 0v.52a.75.75 0 0 0 1.5 0zm-5.7 1.3a.75.75 0 0 1 1.06 0l.369.369a.75.75 0 0 1-1.06 1.06l-.369-.368a.75.75 0 0 1 0-1.06m8.47 8.471a.75.75 0 0 1 1.061 0l.369.368a.75.75 0 1 1-1.061 1.06l-.368-.367a.75.75 0 0 1 0-1.061M7 11.979a.75.75 0 0 1 .75.75v.521a.75.75 0 0 1-1.5 0v-.52a.75.75 0 0 1 .75-.75m6.25-4.229a.75.75 0 0 0 0-1.5h-.52a.75.75 0 0 0 0 1.5zM2.02 7a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h.52a.75.75 0 0 1 .75.75m9.93-3.89a.75.75 0 1 0-1.06-1.06l-.37.369a.75.75 0 1 0 1.062 1.06zm-8.47 7.411a.75.75 0 0 1 0 1.06l-.37.369a.75.75 0 0 1-1.06-1.06l.368-.369a.75.75 0 0 1 1.061 0M7 3.25c-1.432 0-2.424.436-3.032 1.218C3.384 5.218 3.25 6.17 3.25 7s.134 1.782.718 2.532c.608.782 1.6 1.218 3.032 1.218s2.424-.436 3.032-1.218c.584-.75.718-1.702.718-2.532s-.134-1.782-.718-2.532C9.424 3.686 8.432 3.25 7 3.25M4.5 7c0-.733.126-1.343.454-1.765c.303-.39.873-.735 2.046-.735s1.743.346 2.046.735C9.374 5.657 9.5 6.267 9.5 7s-.126 1.343-.454 1.765c-.303.39-.873.735-2.046.735s-1.743-.346-2.046-.735C4.626 8.343 4.5 7.733 4.5 7" clip-rule="evenodd"/>
                         </svg>
-                        <!-- Sun (solid) -->
+
                         <svg class="theme-icon icon-sun" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 14 14">
                             <path fill="currentColor" fill-rule="evenodd" d="M7 0a.75.75 0 0 1 .75.75v.52a.75.75 0 1 1-1.5 0V.75A.75.75 0 0 1 7 0M3.111 2.05a.75.75 0 1 0-1.06 1.06l.368.37a.75.75 0 0 0 1.06-1.061zm8.47 8.47a.75.75 0 1 0-1.06 1.062l.368.368a.75.75 0 1 0 1.06-1.06zm-3.83 2.209a.75.75 0 0 0-1.5 0v.52a.75.75 0 1 0 1.5 0zM14 7a.75.75 0 0 1-.75.75h-.522a.75.75 0 0 1 0-1.5h.521A.75.75 0 0 1 14 7m-12.73.75a.75.75 0 1 0 0-1.5H.75a.75.75 0 0 0 0 1.5zm10.679-5.7a.75.75 0 0 1 0 1.06l-.368.37a.75.75 0 0 1-1.061-1.061l.368-.369a.75.75 0 0 1 1.06 0m-8.47 9.532a.75.75 0 0 0-1.061-1.061l-.369.368a.75.75 0 0 0 1.061 1.06zm6.651-7.19c-.639-.822-1.674-1.267-3.13-1.267c-1.458 0-2.493.445-3.132 1.266c-.61.783-.744 1.77-.744 2.609c0 .84.135 1.826.744 2.609c.639.821 1.674 1.266 3.131 1.266s2.492-.445 3.131-1.266c.61-.783.744-1.77.744-2.609c0-.84-.135-1.826-.744-2.609" clip-rule="evenodd"/>
                         </svg>
@@ -96,28 +97,31 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-badge">
-                <span>v1.3</span>
+                <span>v2.0</span>
                 <img src="img/win11_logo.png" alt="Windows" class="badge-logo">
                 <span>Windows</span>
             </div>
             <h1 class="hero-title">
                 <span class="title-line">Descarga música y vídeos</span>
-                <span class="title-line title-gradient">sin complicaciones</span>
+                <span class="title-line title-gradient">mediante yt-dlp</span>
             </h1>
             <p class="hero-description">
-                Una interfaz gráfica simple y rápida para descargar tu contenido favorito en la mejor calidad posible. Sin comandos, solo para <strong>Windows</strong>.
+                Una interfaz gráfica simple para yt-dlp para poder descargar tu contenido favorito en la mejor calidad posible. Sin comandos, solo para <strong>Windows</strong>.
             </p>
             <div class="hero-buttons">
-                <a href="https://www.mediafire.com/file/u0gcgbspg8qj7no/DropTune+v1.3+-+FINAL+BUILD.zip/file"
-                   class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.mediafire.com/file/lfxv5cpqximtw64/DropTune+v2.0+-+FINAL+BUILD.zip/file"
+                   class="btn btn-download hero-release-download" target="_blank" rel="noopener noreferrer" aria-label="Descargar DropTune estable v2.0 para Windows x64">
                     <img src="img/download_icon.png" alt="" class="btn-icon">
-                    <span>Descargar gratis</span>
+                    <div class="btn-text">
+                        <span class="btn-main">Estable</span>
+                        <span class="btn-sub">v2.0 (x64)</span>
+                    </div>
                 </a>
-                <a href="#features" class="btn btn-secondary">
-                    <span>Ver características</span>
-                </a>
-                <button class="btn btn-secondary" type="button" onclick="prettyModal.open('dialog-details', this)">
-                    <span>Más detalles</span>
+                <button class="btn btn-secondary btn-more-details" type="button" onclick="prettyModal.open('dialog-changelog', this)">
+                    <span>Changelog</span>
+                </button>
+                <button class="btn btn-secondary btn-news" type="button" onclick="prettyModal.open('dialog-news', this)">
+                    <span>Nuevas noticias</span>
                 </button>
             </div>
             <div class="hero-stats">
@@ -133,9 +137,8 @@
                         </div>
         </div>
         <div class="hero-image">
-            <div class="screenshot-wrapper">
-                <img src="img/DropTune_1.png" alt="DropTune Screenshot" class="screenshot">
-                <div class="screenshot-glow"></div>
+            <div class="hero-brand-visual">
+                <img src="img/DropTune_Icon_HighRes.png" alt="Logo de DropTune" class="hero-logo-large">
             </div>
         </div>
     </section>
@@ -150,9 +153,9 @@
                 <p class="section-description">Dos demos en vídeo que muestran el programa en funcionamiento.</p>
             </div>
             <div class="demo-grid">
-                <button class="demo-card" type="button" data-video-id="Y4NvrzJzb-M" data-video-title="Demo de música" data-video-kind="Música">
+                <button class="demo-card" type="button" data-video-id="iuVeBUMbOf8" data-video-title="Demo de música" data-video-kind="Música">
                     <span class="demo-thumb">
-                        <img src="https://i.ytimg.com/vi/Y4NvrzJzb-M/hqdefault.jpg" alt="Demo de descarga de música en DropTune" loading="lazy">
+                        <img src="https://i.ytimg.com/vi/iuVeBUMbOf8/hqdefault.jpg" alt="Demo de descarga de música en DropTune" loading="lazy">
                         <span class="demo-play" aria-hidden="true"></span>
                     </span>
                     <span class="demo-content">
@@ -161,9 +164,9 @@
                         <span>Obtén tus canciones en la máxima calidad MP3 de forma totalmente automática.</span>
                     </span>
                 </button>
-                <button class="demo-card" type="button" data-video-id="c_9NtiaPMJE" data-video-title="Demo de vídeo" data-video-kind="Vídeo">
+                <button class="demo-card" type="button" data-video-id="1p6hxlcNK2g" data-video-title="Demo de vídeo" data-video-kind="Vídeo">
                     <span class="demo-thumb">
-                        <img src="https://i.ytimg.com/vi/c_9NtiaPMJE/hqdefault.jpg" alt="Demo de descarga de vídeo en DropTune" loading="lazy">
+                        <img src="https://i.ytimg.com/vi/1p6hxlcNK2g/hqdefault.jpg" alt="Demo de descarga de vídeo en DropTune" loading="lazy">
                         <span class="demo-play" aria-hidden="true"></span>
                     </span>
                     <span class="demo-content">
@@ -185,9 +188,6 @@
             </div>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="card-shine"></div>
-                    <div class="card-decoration card-decoration-1"></div>
-                    <div class="card-decoration card-decoration-2"></div>
                     <div class="feature-icon-wrapper">
                         <img src="img/music_icon.svg" alt="Música" class="feature-icon">
                     </div>
@@ -195,9 +195,6 @@
                     <p class="feature-description">Descarga canciones en la más alta calidad disponible, con metadatos completos y carátula embebida automáticamente.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="card-shine"></div>
-                    <div class="card-decoration card-decoration-1"></div>
-                    <div class="card-decoration card-decoration-2"></div>
                     <div class="feature-icon-wrapper">
                         <img src="img/video_icon.svg" alt="Video" class="feature-icon">
                     </div>
@@ -205,9 +202,6 @@
                     <p class="feature-description">Elige la calidad que prefieras: 480p, 720p, 1080p o la mejor disponible. (Hasta más de 4K @60fps)</p>
                 </div>
                 <div class="feature-card">
-                    <div class="card-shine"></div>
-                    <div class="card-decoration card-decoration-1"></div>
-                    <div class="card-decoration card-decoration-2"></div>
                     <div class="feature-icon-wrapper">
                         <img src="img/playlist_icon.svg" alt="Playlist" class="feature-icon">
                     </div>
@@ -215,14 +209,11 @@
                     <p class="feature-description">Descarga listas de reproducción enteras con un solo clic. ¿No es genial?</p>
                 </div>
                 <div class="feature-card">
-                    <div class="card-shine"></div>
-                    <div class="card-decoration card-decoration-1"></div>
-                    <div class="card-decoration card-decoration-2"></div>
                     <div class="feature-icon-wrapper">
                         <img src="img/no_ads_icon.svg" alt="Sin Anuncios" class="feature-icon">
                     </div>
                     <h3 class="feature-title">Sin publicidad</h3>
-                    <p class="feature-description">Experiencia directa: sin esperas, sin molestias y sin publicidad invasiva.</p>
+                    <p class="feature-description">Experiencia directa: sin ads, y directo al grano.</p>
                 </div>
             </div>
         </div>
@@ -235,14 +226,14 @@
                 <span class="section-tag">Nuestra historia</span>
                 <h2 class="section-title">¿Por qué creamos DropTune?</h2>
                 <p class="section-description">
-                    Fue más que nada por una <strong>necesidad que tuvimos</strong>. Las páginas web para descargar música o vídeos regularmente están llenas de publicidad, o simplemente no descargan el vídeo con la calidad y los metadatos correctos. Nos cansamos de eso y decidimos hacer esta herramienta. Intenté que la UI del programa fuera lo más limpia posible; quizá más adelante pueda mejorar todavía más. Todo fue programado en Python usando PyQt6. :3
+                    Fue más que nada por una <strong>necesidad que tuvimos</strong>. Las páginas web para descargar música o vídeos regularmente están llenas de publicidad, o simplemente no descargan el vídeo con la calidad y los metadatos correctos. Nos cansamos de eso y decidimos hacer esta herramienta. Intenté que la UI del programa fuera lo más limpia posible; la v2.0 corrige muchas cosas de interfaz para que el usuario se sienta cómodo usándolo, pero creo que puede mejorar aún más. Todo fue programado en Python usando PyQt6. :3
                 </p>
             </div>
-            
+
             <!-- Créditos -->
             <div class="credits-section">
                 <h3 class="credits-title">Créditos</h3>
-                
+
                 <div class="credits-grid">
                     <!-- AndyGuss -->
                     <div class="credit-card">
@@ -268,7 +259,7 @@
                             </button>
                         </div>
                     </div>
-                    
+
                     <!-- MegaStick -->
                     <div class="credit-card">
                         <div class="credit-header">
@@ -279,7 +270,7 @@
                             </div>
                         </div>
                         <p class="credit-description">
-                            Transformó yt-dlp, una herramienta de línea de comandos, en una interfaz gráfica mucho más amigable. Al menos por ahora, esta es la primera versión llevada a una interfaz gráfica para <strong>Windows</strong>.
+                            Hice que yt-dlp, una herramienta de línea de comandos, se convirtiera interfaz gráfica mucho más amigable. Al menos por ahora, esta es la primera versión llevada a una interfaz gráfica para <strong>Windows</strong> Esto lo tome como proyecto personal para poder practicar.
                         </p>
                         <div class="credit-social">
                             <a href="https://www.youtube.com/@MegaStick" target="_blank" class="social-link">
@@ -294,12 +285,12 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Herramientas -->
                 <div class="tools-section">
                     <h3 class="tools-title">Herramientas utilizadas</h3>
                     <p class="tools-description">DropTune no existiría sin estas increíbles y útiles herramientas de código abierto:</p>
-                    
+
                     <div class="tools-grid">
                         <a href="https://github.com/yt-dlp/yt-dlp" target="_blank" class="tool-card">
                             <div class="tool-header">
@@ -326,49 +317,98 @@
         </div>
     </section>
 
+    <!-- Node.js Requirement -->
+    <section class="node-requirement" id="nodejs" aria-labelledby="node-requirement-title">
+        <div class="section-container">
+            <div class="node-card">
+                <div class="node-content">
+                    <div class="node-kicker">
+                        <img src="img/node_icon.png" alt="" class="node-kicker-icon">
+                        <span>Compatibilidad con YouTube</span>
+                    </div>
+                    <h2 class="node-title" id="node-requirement-title">Primero, prepara Node.js</h2>
+                    <p class="node-description">
+                        Node.js es necesario para que DropTune descargue contenido de YouTube sin problemas. Por eso, la aplicación comprueba automáticamente si está disponible al iniciar y lo utiliza junto con yt-dlp para mantener la compatibilidad con sus formatos y calidades, si ya lo tienes instalado, entonces, omite este paso.
+                    </p>
+                    <div class="node-facts" aria-label="Compatibilidad de Node.js con YouTube">
+                        <span><small>Uso</small><strong>YouTube</strong></span>
+                        <span><small>Integración</small><strong>yt-dlp</strong></span>
+                    </div>
+                    <div class="node-actions">
+                        <a href="https://nodejs.org/es/download/" class="node-download" target="_blank" rel="noopener noreferrer">
+                            <img src="img/node_icon.png" alt="" class="node-download-icon">
+                            <span>Descargar Node.js</span>
+                            <span class="node-external" aria-hidden="true">↗</span>
+                        </a>
+                        <p class="node-note">En Windows, elige <strong>Windows Installer (.msi)</strong> y reinicia DropTune después de instalarlo.</p>
+                    </div>
+                </div>
+
+                <div class="node-visual" aria-hidden="true">
+                    <img src="img/Node.js_logo.svg" alt="" class="node-logo">
+                    <img src="img/node_icon.png" alt="" class="node-watermark">
+                    <span class="node-visual-label">Node.js</span>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- Download Section -->
     <section class="download" id="download">
         <div class="section-container">
             <div class="download-card">
+                <div class="download-logo-wall" aria-hidden="true">
+                    <div class="download-logo-strip download-logo-strip-a"></div>
+                    <div class="download-logo-strip download-logo-strip-b"></div>
+                    <div class="download-logo-strip download-logo-strip-c"></div>
+                    <div class="download-logo-strip download-logo-strip-d"></div>
+                    <div class="download-logo-strip download-logo-strip-e"></div>
+                </div>
+
                 <div class="download-content">
-                    <h2 class="download-title">Listo para descargar</h2>
+                    <span class="download-kicker">Compilación para Windows</span>
+                    <h2 class="download-title">
+                        <span class="download-title-gradient">Listo para descargar</span>
+                        <span class="download-title-solid" aria-hidden="true">Listo para descargar</span>
+                    </h2>
                     <p class="download-description">Obtén DropTune y comienza a descargar tu música y vídeos favoritos.</p>
                     <div class="download-info">
                         <div class="info-item">
                             <span class="info-label">Versión</span>
-                            <span class="info-value">1.3</span>
+                            <span class="info-value">2.0</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Tamaño</span>
-                            <span class="info-value">~316 MB</span>
+                            <span class="info-value">~493 MB</span>
                         </div>
                         <div class="info-item">
                             <span class="info-label">Sistema</span>
                             <span class="info-value">Windows 10+</span>
                         </div>
                     </div>
-                    <a href="https://www.mediafire.com/file/u0gcgbspg8qj7no/DropTune+v1.3+-+FINAL+BUILD.zip/file"
-                       class="btn btn-download" target="_blank" rel="noopener noreferrer">
+                </div>
+                <div class="download-visual">
+                    <a href="https://www.mediafire.com/file/lfxv5cpqximtw64/DropTune+v2.0+-+FINAL+BUILD.zip/file"
+                       class="btn btn-download" target="_blank" rel="noopener noreferrer" aria-label="Descargar DropTune estable v2.0 para Windows x64">
                         <img src="img/download_icon.png" alt="" class="btn-icon">
                         <div class="btn-text">
-                            <span class="btn-main">Descargar DropTune</span>
-                            <span class="btn-sub">v1.3 - Gratis</span>
+                            <span class="btn-main">Estable</span>
+                            <span class="btn-sub">v2.0 (x64)</span>
                         </div>
                     </a>
+                    <span class="download-visual-label" aria-hidden="true">DropTune-DLP</span>
                 </div>
             </div>
         </div>
     </section>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-main">
                 <div class="footer-brand">
-                    <img src="img/droptune_icon.png" alt="DropTune" class="footer-logo">
+                    <img src="img/DropTune_Icon_HighRes.png" alt="DropTune" class="footer-logo">
                     <div class="footer-brand-text">
                         <span class="footer-title">DropTune</span>
-                        <span class="footer-subtitle">Descargador de música y vídeos</span>
+                        <span class="footer-subtitle">Interfaz gráfica para yt-dlp</span>
                     </div>
                 </div>
                 <div class="footer-support">
@@ -388,52 +428,174 @@
         </div>
     </footer>
 
-    <dialog id="dialog-details" class="modal-dialog">
+    <dialog id="dialog-changelog" class="modal-dialog release-modal" aria-labelledby="changelog-title">
         <div class="modal-card">
-            <button class="modal-close" type="button" aria-label="Cerrar" onclick="prettyModal.close('dialog-details')">✕</button>
+            <button class="modal-close" type="button" aria-label="Cerrar changelog" onclick="prettyModal.close('dialog-changelog')">✕</button>
             <div class="modal-heading">
-                <span class="modal-heading-icon" aria-hidden="true">
-                    <img src="img/PC_Icon.svg" alt="">
+                <span class="modal-heading-icon modal-heading-icon-logo" aria-hidden="true">
+                    <img src="img/DropTune_Icon_HighRes.png" alt="DropTune">
                 </span>
-                <h2 class="modal-title">Lo importante está en tu equipo :D</h2>
+                <div>
+                    <span class="modal-eyebrow">Historial de versiones</span>
+                    <h2 class="modal-title" id="changelog-title">Changelog de DropTune</h2>
+                </div>
             </div>
-            <p class="modal-text">DropTune funciona como una interfaz para yt-dlp y FFmpeg. No intenta reinventar la descarga: hace más cómodo usar herramientas sólidas desde una interfaz clara.</p>
-            <div class="modal-grid">
-                <div class="modal-feature">
-                    <span>✓</span>
-                    <div>
-                        <strong>Motor confiable</strong>
-                        <p>Las descargas se apoyan en yt-dlp y la conversión de formatos usa FFmpeg, herramientas conocidas y mantenidas por sus comunidades.</p>
+            <p class="modal-text">Changelogs de todas las versiones de DropTune.</p>
+            <div class="release-history">
+                <nav class="release-index" aria-label="Versiones de DropTune">
+                    <span class="release-index-title">Versiones</span>
+                    <div class="release-index-list">
+                        <button class="release-index-button is-active" type="button" data-release-target="release-v20" aria-current="true">
+                            <span class="release-index-version">v2.0</span>
+                            <span class="release-index-label">Actual</span>
+                        </button>
+                        <button class="release-index-button" type="button" data-release-target="release-v12-droptune">
+                            <span class="release-index-version">v1.2</span>
+                            <span class="release-index-label">DropTune</span>
+                        </button>
+                        <button class="release-index-button" type="button" data-release-target="release-v12-soundvid">
+                            <span class="release-index-version">v1.2</span>
+                            <span class="release-index-label">SoundVid</span>
+                        </button>
+                        <button class="release-index-button" type="button" data-release-target="release-origin">
+                            <span class="release-index-version">v1.0–v1.1</span>
+                            <span class="release-index-label">Origen</span>
+                        </button>
                     </div>
-                </div>
-                <div class="modal-feature">
-                    <span>✓</span>
-                    <div>
-                        <strong>Privacidad local</strong>
-                        <p>Tus preferencias se guardan en tu equipo. No se guarda historial de descargas ni URLs, y las cookies nunca se envían a servidores externos.</p>
-                    </div>
-                </div>
-                <div class="modal-feature">
-                    <span>✓</span>
-                    <div>
-                        <strong>Uso personal y transparente</strong>
-                        <p>DropTune está pensado para guardar contenido de forma personal: escuchar sin conexión, ver después o conservar copias para tu propio uso. Tú decides qué descargas y cómo lo usas. ;p</p>
-                    </div>
+                </nav>
+
+                <div class="release-feed" tabindex="0" aria-label="Notas de las versiones">
+                    <section class="release-entry release-entry-current" id="release-v20" data-release-id="release-v20">
+                        <header class="release-entry-header">
+                            <div>
+                                <span class="release-kicker">DropTune</span>
+                                <h3>Versión 2.0</h3>
+                            </div>
+                            <div class="release-entry-meta">
+                                <span class="release-status">Estable</span>
+                                <time datetime="2026-07-23">23 jul 2026</time>
+                            </div>
+                        </header>
+                        <p class="release-summary">Una renovación completa de DropTune: nueva interfaz, mayor control sobre cada descarga y una estructura interna reescrita para crecer con más seguridad.</p>
+                        <ul class="release-points">
+                            <li><strong>Interfaz re-hecha:</strong> diseño consistente, controles más claros, nuevas animaciones más bonitas.</li>
+                            <li><strong>Vista previa inteligente:</strong> muestra miniatura, título, autor, duración, calidad, formato y tamaño estimado antes de descargar.</li>
+                            <li><strong>Más control:</strong> permite editar el nombre, pausar, reanudar o cancelar y muestra cada etapa del procesamiento.</li>
+                            <li><strong>Playlists y Últimos Drops:</strong> limita elementos, omite duplicados y conserva un historial local con miniaturas y estado de los archivos.</li>
+                            <li><strong>Tamaño reducido:</strong> el tamaño de total fue reducido bastante más, originalmente era de unos 857mb, ahora pasa a 493mb.</li>
+                            <li><strong>Nuevo guardado de config:</strong> funciona fuera de C:, guarda la configuración en %LOCALAPPDATA% y separa sus módulos internos.</li>
+                            <li><strong>Y muchas funciones más:</strong> todas las nuevas funciones se detallan mejor en el Readme por si te interesa. :D</li>
+                        </ul>
+                    </section>
+
+                    <section class="release-entry" id="release-v12-droptune" data-release-id="release-v12-droptune">
+                        <header class="release-entry-header">
+                            <div>
+                                <span class="release-kicker">Nueva identidad</span>
+                                <h3>DropTune v1.2</h3>
+                            </div>
+                            <time datetime="2026-06">jun 2026</time>
+                        </header>
+                        <p class="release-summary">SoundVid adopta el nombre DropTune, estrena identidad propia y refuerza el control sobre descargas y errores.</p>
+                        <ul class="release-points">
+                            <li>Nuevo nombre, icono original y código optimizado, pero empezó a crecer más en esta versión.</li>
+                            <li>Progreso con tiempo estimado restante y mejoras al cancelar playlists.</li>
+                            <li>Detección de conexión y mensajes específicos para errores de red, URLs o contenido privado.</li>
+                            <li>Actualización de yt-dlp desde la aplicación y mayor libertad para ubicar la carpeta del programa.</li>
+                        </ul>
+                    </section>
+
+                    <section class="release-entry" id="release-v12-soundvid" data-release-id="release-v12-soundvid">
+                        <header class="release-entry-header">
+                            <div>
+                                <span class="release-kicker">Etapa SoundVid</span>
+                                <h3>SoundVid v1.2</h3>
+                            </div>
+                            <time datetime="2026-04-27">27 abr 2026</time>
+                        </header>
+                        <p class="release-summary">La primera actualización importante convirtió la interfaz inicial en una herramienta mucho más completa.</p>
+                        <ul class="release-points">
+                            <li>Barra de progreso más detallada y botón para cancelar descargas.</li>
+                            <li>Notificaciones de Windows y carpetas personalizables para música y vídeo.</li>
+                            <li>Soporte local para cookies de YouTube, sin enviar preferencias ni historial a servidores externos.</li>
+                            <li>Optimización del código y mensajes de error más descriptivos.</li>
+                        </ul>
+                    </section>
+
+                    <section class="release-entry release-entry-origin" id="release-origin" data-release-id="release-origin">
+                        <header class="release-entry-header">
+                            <div>
+                                <span class="release-kicker">Donde comenzó todo</span>
+                                <h3>SoundVid v1.0–v1.1</h3>
+                            </div>
+                            <time datetime="2026-04-26">abr 2026</time>
+                        </header>
+                        <p class="release-summary">Las primeras compilaciones eran muy cercanas entre sí, por eso se presentan como un solo capítulo: es la creación de una interfaz gráfica creada por MegaStick a partir de los scripts originales de AndyGuss.</p>
+                        <ul class="release-points">
+                            <li>Descargas MP3 con metadatos y carátula, y vídeos MP4 con calidad seleccionable.</li>
+                            <li>Soporte para playlists completas y detección de archivos existentes.</li>
+                            <li>Una interfaz gráfica para dejar atrás los archivos por lotes y los comandos.</li>
+                            <li>Todavía no existía una barra de progreso, todavía decía la información por medio de comandos, no fue hasta en la v1.1 que se eliminó y se agrego la barra de progreso aunque no tan detallada.</li>
+                        </ul>
+                    </section>
                 </div>
             </div>
             <div class="modal-actions">
-                <a href="https://www.mediafire.com/file/u0gcgbspg8qj7no/DropTune+v1.3+-+FINAL+BUILD.zip/file" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Descargar ahora</a>
-                <button class="btn btn-secondary" type="button" onclick="prettyModal.close('dialog-details')">Cerrar</button>
+                <button class="btn btn-secondary" type="button" onclick="prettyModal.close('dialog-changelog')">Cerrar</button>
             </div>
         </div>
     </dialog>
 
+    <dialog id="dialog-news" class="modal-dialog release-modal" aria-labelledby="news-title">
+        <div class="modal-card">
+            <button class="modal-close" type="button" aria-label="Cerrar noticias" onclick="prettyModal.close('dialog-news')">✕</button>
+            <div class="modal-heading">
+                <span class="modal-heading-icon modal-heading-icon-logo" aria-hidden="true">
+                    <img src="img/DropTune_Icon_HighRes.png" alt="">
+                </span>
+                <div>
+                    <span class="modal-eyebrow">Novedades del proyecto</span>
+                    <h2 class="modal-title" id="news-title">Nuevas noticias</h2>
+                </div>
+            </div>
+            <p class="modal-text">Actualizaciones generales de DropTune.</p>
+            <div class="news-list">
+                <article class="news-item news-item-featured">
+                    <div class="news-meta">
+                        <span>Aplicación - Windows</span>
+                        <span>v2.0</span>
+                    </div>
+                    <strong>DropTune 2.0 ya está disponible</strong>
+                    <p>La actualización más grande del proyecto renueva por completo la interfaz y añade nuevas animaciones; puedes ver algunas de las cosas nuevas agregadas en el Changelog.</p>
+                </article>
+                <article class="news-item">
+                    <div class="news-meta">
+                        <span>Nuevo en la página</span>
+                        <span>Node.js</span>
+                    </div>
+                    <strong>Node.js ahora tiene su propia tarjeta</strong>
+                    <p>Añadimos una sección visual con su paleta verde y animaciones propias. Desde ahí puedes conocer por qué DropTune lo necesita para YouTube y acceder directamente a la descarga oficial.</p>
+                </article>
+                <article class="news-item">
+                    <div class="news-meta">
+                        <span>Rediseño completo</span>
+                        <span>Interfaz 2.0</span>
+                    </div>
+                    <strong>La interfaz de las versiones 1.x quedó obsoleta</strong>
+                    <p>DropTune 2.0 reemplazó por completo la interfaz anterior con vista previa, etapas de proceso, pausa y reanudación, y nuevas animaciones.</p>
+                </article>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" type="button" onclick="prettyModal.close('dialog-news')">Cerrar</button>
+            </div>
+        </div>
+    </dialog>
     <!-- GSAP Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/Flip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/CustomEase.min.js"></script>
-    
+
     <script src="js/displacement-utils.js"></script>
     <script src="js/glass-element.js"></script>
     <script src="js/main.js" type="module"></script>

@@ -1,7 +1,7 @@
 /**
  * Web Component GlassElement
  * Efecto de cristal líquido usando filtros SVG
- * 
+ *
  * Funciona mejor en navegadores basados en Chromium.
  * Incluye fallback automático con blur simple para otros navegadores.
  */
@@ -11,11 +11,10 @@ class GlassElement extends HTMLElement {
         super();
         this.clicked = false;
         this.attachShadow({ mode: 'open' });
-        
+
         // Detectar soporte de filtros SVG en backdrop-filter (solo una vez por clase)
         if (GlassElement._svgFilterSupport === undefined) {
             GlassElement._svgFilterSupport = this.detectSVGFilterSupport();
-            console.log(`[GlassElement] SVG Filter Support: ${GlassElement._svgFilterSupport ? '✅ YES' : '❌ NO'} (${navigator.userAgent.match(/(chrome|firefox|safari|edg)/i)?.[0] || 'unknown'})`);
         }
     }
 
@@ -26,7 +25,7 @@ class GlassElement extends HTMLElement {
         // Primero verificar si backdrop-filter está soportado
         const testElement = document.createElement('div');
         testElement.style.backdropFilter = 'blur(1px)';
-        
+
         if (!testElement.style.backdropFilter) {
             return false;
         }
@@ -36,17 +35,17 @@ class GlassElement extends HTMLElement {
         const isChrome = /chrome|chromium|crios|edg/.test(userAgent) && !/firefox|fxios/.test(userAgent);
         const isFirefox = /firefox|fxios/.test(userAgent);
         const isSafari = /safari/.test(userAgent) && !/chrome|chromium|crios|edg/.test(userAgent);
-        
+
         // Solo Chromium-based soportan filtros SVG en backdrop-filter
-        // Firefox y Safari NO los soportan (al menos hasta 2025)
+        // Firefox y Safari NO los soportan (al menos hasta 2026)
         if (isChrome) {
             return true;
         }
-        
+
         if (isFirefox || isSafari) {
             return false;
         }
-        
+
         // Para otros navegadores, intentar detección
         try {
             testElement.style.backdropFilter = 'url(#test)';
@@ -65,13 +64,13 @@ class GlassElement extends HTMLElement {
 
     static get observedAttributes() {
         return [
-            'width', 
-            'height', 
-            'radius', 
-            'depth', 
-            'blur', 
-            'strength', 
-            'chromatic-aberration', 
+            'width',
+            'height',
+            'radius',
+            'depth',
+            'blur',
+            'strength',
+            'chromatic-aberration',
             'debug',
             'background-color',
             'responsive',
@@ -87,7 +86,7 @@ class GlassElement extends HTMLElement {
         this.render();
         this.setupEventListeners();
         this.setupResponsive();
-        
+
         // Observer para auto-size
         if (this.autoSize) {
             this.setupAutoSizeObserver();
@@ -100,11 +99,11 @@ class GlassElement extends HTMLElement {
             // Pequeño delay para que el contenido se renderice
             setTimeout(() => this.updateStyles(), 0);
         });
-        
-        observer.observe(this, { 
-            childList: true, 
-            subtree: true, 
-            characterData: true 
+
+        observer.observe(this, {
+            childList: true,
+            subtree: true,
+            characterData: true
         });
 
         // ResizeObserver para cambios de tamaño
@@ -127,10 +126,10 @@ class GlassElement extends HTMLElement {
     updateResponsiveSize() {
         const baseWidth = parseInt(this.getAttribute('base-width') || this.getAttribute('width')) || 200;
         const baseHeight = parseInt(this.getAttribute('base-height') || this.getAttribute('height')) || 200;
-        
+
         const viewport = window.innerWidth;
         let scale = 1;
-        
+
         if (viewport < 480) {
             scale = 0.6; // Móvil pequeño
         } else if (viewport < 768) {
@@ -138,12 +137,12 @@ class GlassElement extends HTMLElement {
         } else if (viewport < 1024) {
             scale = 0.9; // Tablet
         }
-        
+
         const viewportPadding = viewport < 480 ? 24 : 32;
         const maxAvailableWidth = Math.max(280, viewport - viewportPadding);
         const newWidth = Math.min(Math.round(baseWidth * scale), maxAvailableWidth);
         const newHeight = Math.round(baseHeight * scale);
-        
+
         // Solo actualizar si cambió el tamaño
         if (newWidth !== this.width || newHeight !== this.height) {
             this.setAttribute('width', newWidth);
@@ -213,7 +212,7 @@ class GlassElement extends HTMLElement {
 
     setupEventListeners() {
         const glassBox = this.shadowRoot.querySelector('.glass-box');
-        
+
         glassBox.addEventListener('mousedown', () => {
             this.clicked = true;
             this.updateStyles();
@@ -253,32 +252,32 @@ class GlassElement extends HTMLElement {
 
         if (this.autoSize) {
             // Auto-size: obtener dimensiones del contenido de manera más precisa
-            
+
             // Primero, asegurar que no hay filtros interfiriendo
             element.style.backdropFilter = 'none';
             element.style.background = 'rgba(255, 255, 255, 0.4)';
-            
+
             // Forzar múltiples reflows para asegurar medición correcta
             element.offsetWidth;
             element.offsetHeight;
-            
+
             // Obtener dimensiones usando múltiples métodos para mayor precisión
             const rect = element.getBoundingClientRect();
-            
+
             // Usar el método más confiable: getBoundingClientRect
             let actualWidth = Math.ceil(rect.width);
             let actualHeight = Math.ceil(rect.height);
-            
+
             // Si las dimensiones son 0, esperar al siguiente frame
             if (actualWidth === 0 || actualHeight === 0) {
                 requestAnimationFrame(() => this.updateStyles());
                 return;
             }
-            
+
             // Aplicar tamaños mínimos si están especificados
             actualWidth = Math.max(actualWidth, this.minWidth);
             actualHeight = Math.max(actualHeight, this.minHeight);
-            
+
             // Asegurar tamaños mínimos razonables para el filtro SVG
             actualWidth = Math.max(actualWidth, 50);
             actualHeight = Math.max(actualHeight, 30);
@@ -353,7 +352,7 @@ class GlassElement extends HTMLElement {
                 :host {
                     display: ${this.autoSize ? 'inline-block' : 'block'};
                 }
-                
+
                 .glass-box {
                     background: rgba(255, 255, 255, 0.4);
                     box-shadow: 1px 1px 1px 0px rgba(255,255,255, 0.60) inset, -1px -1px 1px 0px rgba(255,255,255, 0.60) inset, 0px 0px 16px 0px rgba(0,0,0, 0.04);
@@ -362,7 +361,7 @@ class GlassElement extends HTMLElement {
                     position: relative;
                     ${this.autoSize ? `display: inline-block; width: fit-content; min-width: ${this.minWidth}px; min-height: ${this.minHeight}px;` : ''}
                 }
-                
+
                 .glass-box:active {
                     transform: scale(0.98);
                 }
@@ -387,7 +386,7 @@ class GlassElement extends HTMLElement {
 
         // Aplicar estilos dinámicos después del render
         const glassBox = this.shadowRoot.querySelector('.glass-box');
-        
+
         // Si es auto-size, esperar a que el contenido se renderice completamente
         if (this.autoSize) {
             // Usar doble requestAnimationFrame para asegurar que el layout esté completo

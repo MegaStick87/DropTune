@@ -1,13 +1,13 @@
 // Programado por MegaStick.
 
-// _____ ______   _______   ________  ________  ________  _________  ___  ________  ___  __       
-// |\   _ \  _   \|\  ___ \ |\   ____\|\   __  \|\   ____\|\___   ___\\  \|\   ____\|\  \|\  \     
-// \ \  \\\__\ \  \ \   __/|\ \  \___|\ \  \|\  \ \  \___|\|___ \  \_\ \  \ \  \___|\ \  \/  /|_   
-// \ \  \\|__| \  \ \  \_|/_\ \  \  __\ \   __  \ \_____  \   \ \  \ \ \  \ \  \    \ \   ___  \  
-//  \ \  \    \ \  \ \  \_|\ \ \  \|\  \ \  \ \  \|____|\  \   \ \  \ \ \  \ \  \____\ \  \\ \  \ 
+// _____ ______   _______   ________  ________  ________  _________  ___  ________  ___  __
+// |\   _ \  _   \|\  ___ \ |\   ____\|\   __  \|\   ____\|\___   ___\\  \|\   ____\|\  \|\  \
+// \ \  \\\__\ \  \ \   __/|\ \  \___|\ \  \|\  \ \  \___|\|___ \  \_\ \  \ \  \___|\ \  \/  /|_
+// \ \  \\|__| \  \ \  \_|/_\ \  \  __\ \   __  \ \_____  \   \ \  \ \ \  \ \  \    \ \   ___  \
+//  \ \  \    \ \  \ \  \_|\ \ \  \|\  \ \  \ \  \|____|\  \   \ \  \ \ \  \ \  \____\ \  \\ \  \
 //   \ \__\    \ \__\ \_______\ \_______\ \__\ \__\____\_\  \   \ \__\ \ \__\ \_______\ \__\\ \__\
 //    \|__|     \|__|\|_______|\|_______|\|__|\|__|\_________\   \|__|  \|__|\|_______|\|__| \|__|
-//                                                \|_________|                                    
+//                                                \|_________|
 
 //                                             ARCHIVO JS.
 
@@ -28,6 +28,16 @@ const navLinks = $$('.nav-link');
 const sections = $$('section[id]');
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const gsap = window.gsap;
+
+window.closeModalAndScroll = (dialogId, targetId) => {
+    prettyModal.close(dialogId);
+    window.setTimeout(() => {
+        document.getElementById(targetId)?.scrollIntoView({
+            behavior: reduceMotion ? 'auto' : 'smooth',
+            block: 'start'
+        });
+    }, reduceMotion ? 0 : 720);
+};
 
 // Registrar plugins de GSAP si están disponibles
 if (gsap) {
@@ -103,11 +113,6 @@ themeVars.dark.panelBg = '#0c1113';
 themeVars.dark.panelBorder = '#1b2225';
 themeVars.dark.panelShadow = '0 34px 110px rgba(0,0,0,0.7)';
 
-// Add screenshot-specific styles to theme variables
-themeVars.light.screenshotFilter = 'none';
-themeVars.light.screenshotShadow = '0 10px 30px rgba(2,6,23,0.12)';
-themeVars.dark.screenshotFilter = 'brightness(1.08) contrast(1.12) saturate(1.06)';
-themeVars.dark.screenshotShadow = '0 30px 90px rgba(0,0,0,0.7)';
 
 function applyTheme(theme, animated = true) {
     const vars = themeVars[theme] || themeVars.light;
@@ -220,62 +225,6 @@ function createConfetti() {
 
         document.body.appendChild(confetti);
         setTimeout(() => confetti.remove(), 3200);
-    }
-}
-
-const supportsViewTransition = typeof document.startViewTransition === 'function';
-
-async function toggleDialog(event, dialogId) {
-    const viewTransitionClass = 'vt-element-animation';
-    const viewTransitionClassClosing = 'vt-element-animation-closing';
-    const openDialog = document.querySelector('dialog[open]');
-    const dialog = dialogId ? document.getElementById(dialogId) : openDialog;
-    if (!dialog) return;
-
-    if (!dialogId) {
-        if (!dialog.open) return;
-
-        const originElement = document.querySelector('[origin-element]');
-        if (supportsViewTransition && originElement) {
-            dialog.style.viewTransitionName = 'vt-shared';
-            dialog.style.viewTransitionClass = viewTransitionClassClosing;
-            originElement.style.viewTransitionName = 'vt-shared';
-            originElement.style.viewTransitionClass = viewTransitionClassClosing;
-
-            const viewTransition = document.startViewTransition(() => {
-                originElement.style.viewTransitionName = '';
-                originElement.style.viewTransitionClass = '';
-                dialog.style.viewTransitionName = '';
-                dialog.style.viewTransitionClass = '';
-                dialog.close();
-            });
-            await viewTransition.finished;
-        } else {
-            dialog.close();
-        }
-
-        return false;
-    }
-
-    if (dialog.open) return;
-
-    const originElement = event.currentTarget;
-
-    if (supportsViewTransition) {
-        dialog.style.viewTransitionName = 'vt-shared';
-        dialog.style.viewTransitionClass = viewTransitionClass;
-        originElement.style.viewTransitionName = 'vt-shared';
-        originElement.style.viewTransitionClass = viewTransitionClass;
-        originElement.setAttribute('origin-element', '');
-
-        const viewTransition = document.startViewTransition(() => {
-            originElement.style.viewTransitionName = '';
-            originElement.style.viewTransitionClass = '';
-            dialog.showModal();
-        });
-        await viewTransition.finished;
-    } else {
-        dialog.showModal();
     }
 }
 
@@ -438,7 +387,8 @@ function setupRevealAnimations() {
             }
 
             return [target];
-        };
+        };
+
 elements.forEach((target, index) => {
             const targets = getRevealTargets(target);
             const animatesChildren = !targets.includes(target);
@@ -539,36 +489,6 @@ function setupStatsAnimation() {
     stats.forEach(stat => observer.observe(stat));
 }
 
-function setupScreenshotEasterEgg() {
-    const screenshot = $('.screenshot');
-    const wrapper = $('.screenshot-wrapper');
-    if (!screenshot || !wrapper) return;
-
-    const params = new URLSearchParams(window.location.search);
-    const forced = params.has('droptunead') || params.get('egg') === 'droptunead';
-    const disabled = params.get('egg') === 'off';
-    const chance = 0.08;
-
-    if (disabled || (!forced && Math.random() > chance)) return;
-
-    const originalSrc = screenshot.getAttribute('src');
-    screenshot.dataset.originalSrc = originalSrc || '';
-    screenshot.src = 'img/droptunead.jpg';
-    screenshot.alt = 'Anuncio secreto de DropTune';
-    wrapper.classList.add('is-easter-egg');
-
-    if (!gsap || reduceMotion) return;
-
-    gsap.fromTo(screenshot,
-        { autoAlpha: 0, scale: 1.035, filter: 'brightness(1.35) saturate(1.25) blur(6px)' },
-        { autoAlpha: 1, scale: 1, filter: 'brightness(1) saturate(1) blur(0px)', duration: d(0.85), ease: 'power3.out', delay: d(0.28) }
-    );
-
-    gsap.fromTo(wrapper,
-        { boxShadow: '0 0 0 rgba(42,139,214,0)' },
-        { boxShadow: '0 28px 95px rgba(42,139,214,0.28)', duration: d(1.2), ease: 'power2.out', yoyo: true, repeat: 1, delay: d(0.2) }
-    );
-}
 function setupGsapAnimations() {
     if (!gsap || reduceMotion) return;
 
@@ -590,34 +510,23 @@ function setupGsapAnimations() {
             clearProps: 'transform,opacity,visibility'
         }, '-=0.28')
         .from('.hero-stats .stat, .hero-stats .stat-divider', { y: 16, autoAlpha: 0, stagger: d(0.07) }, '-=0.38')
-        .fromTo('.screenshot-wrapper',
+        .fromTo('.hero-logo-large',
             {
-                y: 26,
-                scale: 0.965,
+                y: 24,
+                scale: 0.78,
                 autoAlpha: 0,
-                clipPath: 'inset(8% 10% 8% 10% round 18px)',
-                filter: 'blur(10px) saturate(1.15)'
+                filter: 'blur(18px)'
             },
             {
                 y: 0,
                 scale: 1,
                 autoAlpha: 1,
-                clipPath: 'inset(0% 0% 0% 0% round 18px)',
-                filter: 'blur(0px) saturate(1)',
+                filter: 'blur(0px)',
                 duration: d(1.05),
                 ease: 'power4.out',
-                clearProps: 'transform,clipPath,filter,opacity,visibility'
+                clearProps: 'transform,opacity,visibility,filter'
             }, '-=0.68');
 
-    // The hero screenshot gets an entrance reveal, then remains static.
-    heroTimeline.eventCallback('onComplete', () => {
-        const screenshot = $('.screenshot-wrapper');
-        if (!screenshot) return;
-        screenshot.style.opacity = '1';
-        screenshot.style.visibility = 'visible';
-        screenshot.style.transition = 'none';
-        screenshot.style.willChange = 'auto';
-    });
 
     gsap.to('.hero-badge', {
         y: -4,
@@ -653,203 +562,8 @@ function setupGsapAnimations() {
         });
     }
 
-
-    // Additionally, if the device is touch-capable, clear any ScrollTrigger instances that target the screenshot.
-    try {
-        const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
-        if (isTouch && window.ScrollTrigger) {
-            ScrollTrigger.getAll().forEach(st => {
-                if (st.trigger && st.trigger.matches && st.trigger.matches('.screenshot-wrapper, .screenshot')) {
-                    st.kill();
-                }
-            });
-        }
-    } catch (e) { /* ignore */ }
-
-    // Lightbox animado con blur de fondo para la captura (DropTune_1.png)
-    function setupScreenshotLightbox() {
-        const originalImg = document.querySelector('.screenshot');
-        if (!originalImg) return;
-
-        originalImg.style.cursor = 'zoom-in';
-
-        let overlayEl = null;
-        let _initRect = null;
-
-        function openLightbox() {
-            if (!gsap) return window.open(originalImg.src, '_blank');
-            if (overlayEl) return;
-
-            const rect = originalImg.getBoundingClientRect();
-            _initRect = rect;
-
-            overlayEl = document.createElement('div');
-            overlayEl.className = 'screenshot-overlay';
-            Object.assign(overlayEl.style, {
-                position: 'fixed',
-                inset: '0',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'rgba(8,10,12,0)',
-                zIndex: 99999,
-                cursor: 'zoom-out',
-                backdropFilter: 'blur(0px)'
-            });
-
-            const clone = originalImg.cloneNode(true);
-            clone.className = 'screenshot-clone';
-            // ensure the clone is visible and positioned relative to the viewport
-            Object.assign(clone.style, {
-                position: 'fixed',
-                top: `${rect.top}px`,
-                left: `${rect.left}px`,
-                width: `${rect.width}px`,
-                height: `${rect.height}px`,
-                transformOrigin: 'center center',
-                borderRadius: getComputedStyle(originalImg).borderRadius || '8px',
-                boxShadow: '0 10px 30px rgba(2,6,23,0.45)',
-                willChange: 'transform, filter',
-                zIndex: 99999,
-                opacity: 1
-            });
-
-            // Force visible in case global img styles hide non-loaded clones
-            clone.classList.add('loaded');
-
-            overlayEl.appendChild(clone);
-
-            // Controles accesibles: cerrar y descargar
-            const controls = document.createElement('div');
-            controls.className = 'lightbox-controls';
-
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'lightbox-close';
-            closeBtn.type = 'button';
-            closeBtn.setAttribute('aria-label', 'Cerrar imagen');
-            closeBtn.innerHTML = '✕';
-
-            controls.appendChild(closeBtn);
-            overlayEl.appendChild(controls);
-            document.body.appendChild(overlayEl);
-            document.body.style.overflow = 'hidden';
-
-            const targetScaleX = (window.innerWidth * 0.92) / rect.width;
-            const targetScaleY = (window.innerHeight * 0.92) / rect.height;
-            const targetScale = Math.min(targetScaleX, targetScaleY);
-
-            const targetX = (window.innerWidth - rect.width) / 2 - rect.left;
-            const targetY = (window.innerHeight - rect.height) / 2 - rect.top;
-
-            // Animación principal: fondo con blur + zoom suave y elevación
-            gsap.timeline({ defaults: { ease: 'power4.out' } })
-                .to(overlayEl, { backdropFilter: 'blur(8px)', background: 'rgba(8,10,12,0.6)', duration: d(0.42) }, 0)
-                .to(clone, {
-                    x: targetX,
-                    y: targetY,
-                    scale: targetScale,
-                    duration: d(0.92),
-                    ease: 'power4.out',
-                    rotationX: 0.6,
-                    rotationY: -0.8,
-                    boxShadow: '0 28px 80px rgba(2,6,23,0.6)'
-                }, 0);
-
-            function closeLightbox() {
-                // Compute destination rect of the original image at close time (handles scroll/resize)
-                const srcRect = originalImg.getBoundingClientRect() || _initRect;
-
-                // If init rect not available, fallback to srcRect
-                const initRect = _initRect || srcRect;
-
-                // Helper to check if thumbnail is visible in viewport
-                const isVisible = (r) => !(r.bottom < 0 || r.top > window.innerHeight || r.right < 0 || r.left > window.innerWidth);
-
-                if (!isVisible(srcRect)) {
-                    // If thumbnail is offscreen, do a graceful fade+scale instead of forcing movement
-                    gsap.timeline({ defaults: { ease: 'power3.inOut' } })
-                        .to(overlayEl, { backdropFilter: 'blur(0px)', background: 'rgba(8,10,12,0)', duration: d(0.36) }, 0)
-                        .to(clone, { autoAlpha: 0, scale: 0.9, duration: d(0.42), onComplete: () => {
-                            overlayEl?.remove();
-                            overlayEl = null;
-                        } }, 0);
-
-                    window.removeEventListener('keydown', onKey);
-                    try { lastFocused?.focus?.(); } catch (e) { originalImg.focus?.(); }
-                    setTimeout(() => { document.body.style.overflow = ''; }, d(300));
-                    return;
-                }
-
-                // Compute final transform values relative to clone's original top/left
-                const finalScale = srcRect.width / initRect.width;
-                const finalX = srcRect.left - initRect.left;
-                const finalY = srcRect.top - initRect.top;
-
-                // Animate backdrop + clone back to thumbnail position
-                gsap.timeline({ defaults: { ease: 'power3.inOut' } })
-                    .to(overlayEl, { backdropFilter: 'blur(0px)', background: 'rgba(8,10,12,0)', duration: d(0.36) }, 0)
-                    .to(clone, { x: finalX, y: finalY, scale: finalScale, duration: d(0.6), rotationX: 0, rotationY: 0, boxShadow: '0 10px 30px rgba(2,6,23,0.45)' , onComplete: () => {
-                        overlayEl?.remove();
-                        overlayEl = null;
-                    }}, 0);
-
-                window.removeEventListener('keydown', onKey);
-                // restore focus to previously focused element (if any)
-                try { lastFocused?.focus?.(); } catch (e) { originalImg.focus?.(); }
-                // restore body scrolling after animation has started
-                setTimeout(() => { document.body.style.overflow = ''; }, d(300));
-            }
-
-            function onKey(e) { if (e.key === 'Escape') closeLightbox(); }
-
-            overlayEl.addEventListener('click', (ev) => { if (ev.target === overlayEl || ev.target === clone) closeLightbox(); });
-
-
-            // Controls events
-            closeBtn.addEventListener('click', closeLightbox);
-
-            // Accessibility: trap focus inside controls while open
-            const focusable = [closeBtn];
-            let lastFocused = document.activeElement;
-            closeBtn.tabIndex = 0;
-            closeBtn.focus();
-
-            function trapTab(e) {
-                if (e.key !== 'Tab') return;
-                // If only one focusable element, keep focus there
-                if (focusable.length === 1) {
-                    e.preventDefault();
-                    focusable[0].focus();
-                    return;
-                }
-                const idx = focusable.indexOf(document.activeElement);
-                if (e.shiftKey) {
-                    if (idx === 0) { e.preventDefault(); focusable[focusable.length - 1].focus(); }
-                } else {
-                    if (idx === focusable.length - 1) { e.preventDefault(); focusable[0].focus(); }
-                }
-            }
-
-            function onKeyWrap(e) {
-                onKey(e);
-                trapTab(e);
-            }
-
-            window.addEventListener('keydown', onKeyWrap);
-        }
-
-        // Make image focusable for keyboard users
-        originalImg.tabIndex = 0;
-        originalImg.addEventListener('click', openLightbox);
-        originalImg.addEventListener('keypress', (e) => { if (e.key === 'Enter' || e.key === ' ') openLightbox(); });
-    }
-
-    // Inicializar lightbox después de configurar GSAP
-    try { setupScreenshotLightbox(); } catch (e) { console.warn('screenshot lightbox init failed', e); }
-
     const parallaxItems = [
-        { element: $('.hero-content'), speed: 0.08 },
-        { element: $('.hero-image'), speed: -0.11 }
+        { element: $('.hero-content'), speed: 0.08 }
     ].filter(item => item.element);
 
     let ticking = false;
@@ -950,34 +664,190 @@ function setupKofiButtonAnimation() {
             .to(label, { x: 0, duration: d(0.34), ease: 'power3.out' }, 0);
     });
 }
-function setupDownloadSectionAnimation() {
-    if (!gsap || reduceMotion || !window.ScrollTrigger) return;
+function setupNodeRequirementAnimation() {
+    const card = $('.node-card');
+    if (!card || !gsap || reduceMotion || !window.ScrollTrigger) return;
 
+    const logo = $('.node-logo', card);
+    const watermark = $('.node-watermark', card);
+    const contentTargets = [
+        $('.node-kicker', card),
+        $('.node-title', card),
+        $('.node-description', card),
+        ...$$('.node-facts span', card),
+        $('.node-actions', card)
+    ].filter(Boolean);
+
+    gsap.set(card, {
+        autoAlpha: 0,
+        y: 54
+    });
+    gsap.set(contentTargets, { autoAlpha: 0, y: 24, filter: 'blur(10px)' });
+    gsap.set(logo, {
+        autoAlpha: 0,
+        y: -42,
+        scale: 0.86,
+        filter: 'brightness(0) invert(1) blur(16px)'
+    });
+    gsap.set(watermark, {
+        autoAlpha: 0,
+        y: 38,
+        scale: 0.68,
+        rotate: -24,
+        filter: 'blur(24px) brightness(1.18)',
+        transformOrigin: '50% 70%'
+    });
+
+    ScrollTrigger.create({
+        trigger: card,
+        start: 'top 80%',
+        once: true,
+        onEnter: () => {
+            const timeline = gsap.timeline({
+                defaults: { overwrite: 'auto' },
+                onComplete: () => {
+                    card.classList.add('animate-in');
+                    gsap.set([card, ...contentTargets, logo, watermark], {
+                        clearProps: 'transform,filter,opacity,visibility,clipPath'
+                    });
+                }
+            });
+
+            timeline
+                .to(card, {
+                    autoAlpha: 1,
+                    y: 0,
+                    duration: d(1),
+                    ease: 'power4.out'
+                }, 0)
+                .to(logo, {
+                    autoAlpha: 1,
+                    y: 0,
+                    scale: 1,
+                    filter: 'brightness(0) invert(1) blur(0px)',
+                    duration: d(1.05),
+                    ease: 'back.out(1.35)'
+                }, 0.12)
+                .to(watermark, {
+                    autoAlpha: 0.15,
+                    y: 0,
+                    scale: 1,
+                    rotate: -8,
+                    filter: 'blur(0px) brightness(1)',
+                    duration: d(1.25),
+                    ease: 'power4.out'
+                }, 0.18)
+                .to(contentTargets, {
+                    autoAlpha: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    duration: d(0.72),
+                    stagger: d(0.065),
+                    ease: 'power3.out'
+                }, 0.28);
+        }
+    });
+}
+function setupDownloadSectionAnimation() {
     const card = $('.download-card');
     if (!card) return;
 
+    const logoStrips = $$('.download-logo-strip', card);
+    const logoTracks = logoStrips.map((strip) => {
+        const track = document.createElement('div');
+        track.className = 'download-logo-track';
+
+        for (let groupIndex = 0; groupIndex < 2; groupIndex += 1) {
+            const group = document.createElement('div');
+            group.className = 'download-logo-group';
+
+            for (let logoIndex = 0; logoIndex < 7; logoIndex += 1) {
+                const logo = document.createElement('img');
+                logo.src = 'img/DropTune_Icon_HighRes.png';
+                logo.alt = '';
+                logo.className = 'download-logo-item';
+                logo.draggable = false;
+                group.appendChild(logo);
+            }
+
+            track.appendChild(group);
+        }
+
+        strip.replaceChildren(track);
+        return track;
+    });
+
+    if (!gsap || reduceMotion || !window.ScrollTrigger) return;
+
+    const kicker = $('.download-kicker', card);
     const title = $('.download-title', card);
+    const titleGradient = $('.download-title-gradient', card);
+    const titleSolid = $('.download-title-solid', card);
     const description = $('.download-description', card);
     const infoItems = $$('.info-item', card);
     const button = $('.btn-download', card);
     const buttonIcon = $('.btn-icon', button);
     const buttonText = $('.btn-text', button);
-    const targets = [title, description, ...infoItems, button].filter(Boolean);
+    const logoWall = $('.download-logo-wall', card);
+    const visualLabel = $('.download-visual-label', card);
+    const contentTargets = [kicker, title, description, ...infoItems, button].filter(Boolean);
+
+    const marqueeDirection = Math.random() < 0.5 ? -1 : 1;
+    const compactMarquee = window.matchMedia('(max-width: 768px)').matches;
+    const diagonalAngle = (compactMarquee ? -6 : -9) * marqueeDirection;
+    gsap.set(logoStrips, {
+        rotate: diagonalAngle,
+        transformOrigin: '50% 50%'
+    });
+
+    const marqueeTweens = logoTracks.map((track) => {
+        const startPosition = marqueeDirection < 0 ? 0 : -50;
+        const endPosition = marqueeDirection < 0 ? -50 : 0;
+        const tween = gsap.fromTo(track,
+            { xPercent: startPosition },
+            {
+                xPercent: endPosition,
+                duration: 51.5,
+                ease: 'none',
+                repeat: -1,
+                force3D: true,
+                paused: true
+            }
+        );
+
+        tween.progress(Math.random());
+        return tween;
+    });
+
+    if ('IntersectionObserver' in window) {
+        const marqueeObserver = new IntersectionObserver(([entry]) => {
+            marqueeTweens.forEach((tween) => {
+                if (entry.isIntersecting) tween.play();
+                else tween.pause();
+            });
+        }, { threshold: 0.01 });
+
+        marqueeObserver.observe(card);
+    } else {
+        marqueeTweens.forEach(tween => tween.play());
+    }
 
     gsap.set(card, {
         autoAlpha: 0,
-        y: 46,
-        scale: 0.965,
-        filter: 'blur(16px)',
-        clipPath: 'inset(9% 7% 9% 7% round 22px)',
-        '--download-card-glow': '0'
+        y: 52
     });
 
-    gsap.set(targets, {
+    gsap.set(contentTargets, {
         autoAlpha: 0,
-        y: 22,
+        y: 24,
         filter: 'blur(10px)'
     });
+
+    gsap.set(titleGradient, {
+        autoAlpha: 1,
+        backgroundPosition: '0% 50%'
+    });
+    gsap.set(titleSolid, { autoAlpha: 0 });
 
     gsap.set(infoItems, {
         scale: 0.94,
@@ -986,11 +856,16 @@ function setupDownloadSectionAnimation() {
         transformOrigin: '50% 80%'
     });
 
-    if (button) {
-        gsap.set(button, {
-            scale: 0.94
-        });
-    }
+    gsap.set(button, { scale: 0.94 });
+    gsap.set(logoWall, {
+        autoAlpha: 0,
+        filter: 'blur(14px)'
+    });
+    gsap.set(visualLabel, {
+        autoAlpha: 0,
+        y: 14,
+        filter: 'blur(8px)'
+    });
 
     ScrollTrigger.create({
         trigger: card,
@@ -1001,8 +876,19 @@ function setupDownloadSectionAnimation() {
                 defaults: { overwrite: 'auto' },
                 onComplete: () => {
                     card.classList.add('animate-in');
-                    gsap.set([card, ...targets], { clearProps: 'transform,filter,opacity,visibility,clipPath' });
-                    gsap.set(infoItems, { clearProps: 'rotateX,transformPerspective,transformOrigin' });
+                    gsap.set([
+                        card,
+                        ...contentTargets,
+                        titleGradient,
+                        titleSolid,
+                        logoWall,
+                        visualLabel
+                    ], {
+                        clearProps: 'transform,filter,opacity,visibility,clipPath,backgroundPosition'
+                    });
+                    gsap.set(infoItems, {
+                        clearProps: 'rotateX,transformPerspective,transformOrigin'
+                    });
                 }
             });
 
@@ -1010,59 +896,77 @@ function setupDownloadSectionAnimation() {
                 .to(card, {
                     autoAlpha: 1,
                     y: 0,
-                    scale: 1,
-                    filter: 'blur(0px)',
-                    clipPath: 'inset(0% 0% 0% 0% round 22px)',
-                    duration: d(0.96),
+                    duration: d(1),
                     ease: 'power4.out'
                 }, 0)
-                .to(card, {
-                    '--download-card-glow': '1',
-                    duration: d(0.72),
-                    ease: 'power2.out',
-                    yoyo: true,
-                    repeat: 1
-                }, 0.08)
-                .to([title, description], {
+                .to(logoWall, {
+                    autoAlpha: 0.48,
+                    filter: 'blur(0px)',
+                    duration: d(1.1),
+                    ease: 'power3.out'
+                }, 0.06)
+                .to([kicker, title, description], {
                     autoAlpha: 1,
                     y: 0,
                     filter: 'blur(0px)',
-                    duration: d(0.72),
+                    duration: d(0.76),
                     ease: 'power3.out',
                     stagger: d(0.075)
                 }, 0.18)
+                .to(titleGradient, {
+                    backgroundPosition: '100% 50%',
+                    duration: d(1.1),
+                    ease: 'power2.inOut'
+                }, 0.24)
                 .to(infoItems, {
                     autoAlpha: 1,
                     y: 0,
                     scale: 1,
                     rotateX: 0,
                     filter: 'blur(0px)',
-                    duration: d(0.72),
-                    ease: 'back.out(1.25)',
-                    stagger: d(0.08)
-                }, 0.34)
+                    duration: d(0.7),
+                    ease: 'back.out(1.2)',
+                    stagger: d(0.075)
+                }, 0.42)
                 .to(button, {
                     autoAlpha: 1,
                     y: 0,
                     scale: 1,
                     filter: 'blur(0px)',
-                    duration: d(0.7),
-                    ease: 'back.out(1.55)'
-                }, 0.62)
+                    duration: d(0.68),
+                    ease: 'back.out(1.45)'
+                }, 0.66)
+                .to(visualLabel, {
+                    autoAlpha: 1,
+                    y: 0,
+                    filter: 'blur(0px)',
+                    duration: d(0.58),
+                    ease: 'power3.out'
+                }, 0.7)
+                .to(titleSolid, {
+                    autoAlpha: 1,
+                    duration: d(0.48),
+                    ease: 'power2.out'
+                }, 0.98)
+                .to(titleGradient, {
+                    autoAlpha: 0,
+                    duration: d(0.48),
+                    ease: 'power2.out'
+                }, 0.98)
                 .to(buttonIcon, {
                     y: -3,
+                    duration: d(0.22),
+                    ease: 'power2.out',
+                    yoyo: true,
+                    repeat: 1
+                }, 1.02)
+                .to(buttonText, {
+                    x: 2,
                     duration: d(0.24),
                     ease: 'power2.out',
                     yoyo: true,
                     repeat: 1
-                }, 0.88)
-                .to(buttonText, {
-                    x: 2,
-                    duration: d(0.26),
-                    ease: 'power2.out',
-                    yoyo: true,
-                    repeat: 1
-                }, 0.9);
+                }, 1.04);
         }
     });
 }
@@ -1075,7 +979,6 @@ function setupFastScrollDisarray() {
         '.hero-description',
         '.hero-buttons .btn',
         '.hero-stats .stat',
-        '.screenshot-wrapper',
         '.section-header.animate-in',
         '.about-header.animate-in',
         '.demo-card.animate-in',
@@ -1105,7 +1008,7 @@ function setupFastScrollDisarray() {
 
         visibleTargets.forEach((element, index) => {
             const isHeroTitle = element.classList.contains('title-line');
-            const isLargeVisual = element.classList.contains('screenshot-wrapper') || element.classList.contains('download-card');
+            const isLargeVisual = element.classList.contains('download-card');
             const strength = isLargeVisual ? 0.72 : 1;
             const drift = gsap.utils.random(7, 18) * intensity * strength;
             const wobble = gsap.utils.random(-13, 13) * intensity * strength;
@@ -1165,6 +1068,9 @@ function setupDemoVideos() {
         const title = card.dataset.videoTitle || 'Demo de DropTune';
         const kind = card.dataset.videoKind || 'Demo';
         const embedOrigin = encodeURIComponent(window.location.origin);
+        const thumbImage = $('.demo-thumb img', card);
+        const posterSrc = thumbImage?.currentSrc || thumbImage?.src || '';
+        const posterAlt = thumbImage?.alt || title;
 
         const element = document.createElement('div');
         element.className = 'video-demo-overlay';
@@ -1181,6 +1087,9 @@ function setupDemoVideos() {
                     <button class="video-demo-close" type="button" aria-label="Cerrar video">&#10005;</button>
                 </div>
                 <div class="video-demo-frame">
+                    <div class="video-demo-poster" aria-hidden="true">
+                        <img src="${posterSrc}" alt="${posterAlt}">
+                    </div>
                     <iframe title="${title}" src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&origin=${embedOrigin}" referrerpolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
             </div>
@@ -1270,6 +1179,8 @@ function setupDemoVideos() {
         const closeButton = $('.video-demo-close', overlay);
         const shell = $('.video-demo-shell', overlay);
         const frame = $('.video-demo-frame', overlay);
+        const poster = $('.video-demo-poster', overlay);
+        const iframe = $('.video-demo-frame iframe', overlay);
 
         closeButton.addEventListener('click', closeDemo);
         overlay.addEventListener('click', (event) => {
@@ -1300,6 +1211,10 @@ function setupDemoVideos() {
                 .to(overlay, { autoAlpha: 1, backdropFilter: 'blur(16px)', background: 'rgba(4, 8, 12, 0.72)', duration: d(0.42) }, 0)
                 .to(shell, { y: 0, scale: 1, autoAlpha: 1, duration: d(0.54) }, 0.05)
                 .to(frame, { x: 0, y: 0, scaleX: 1, scaleY: 1, duration: d(0.72) }, 0.02)
+                .to($('.video-demo-poster img', overlay), { scale: 1.01, duration: d(0.78) }, 0.02)
+                .to(poster, { filter: 'blur(10px) saturate(1.12) contrast(1.02)', autoAlpha: 0.34, duration: d(0.52), ease: 'sine.inOut' }, 0.46)
+                .to(iframe, { autoAlpha: 1, duration: d(0.34), ease: 'power2.out' }, 0.58)
+                .to(poster, { autoAlpha: 0, duration: d(0.34), ease: 'power2.out' }, 0.82)
                 .from($('.video-demo-title', overlay), { yPercent: 80, autoAlpha: 0, duration: d(0.5) }, 0.16)
                 .from($('.video-demo-label', overlay), { y: 12, autoAlpha: 0, duration: d(0.38) }, 0.12)
                 .from(closeButton, { rotate: -90, scale: 0.7, autoAlpha: 0, duration: d(0.42) }, 0.2);
@@ -1376,11 +1291,17 @@ if (navLogo) {
 
 const scrollIndicator = setupScrollIndicator();
 
-window.addEventListener('load', () => {
+const handlePageLoaded = () => {
     document.body.classList.add('loaded');
     updateNavbar();
     updateActiveNav();
-});
+};
+
+if (document.readyState === 'complete') {
+    handlePageLoaded();
+} else {
+    window.addEventListener('load', handlePageLoaded, { once: true });
+}
 
 window.addEventListener('scroll', () => {
     updateNavbar();
@@ -1390,9 +1311,9 @@ window.addEventListener('scroll', () => {
 
 setupRevealAnimations();
 setupStatsAnimation();
-setupScreenshotEasterEgg();
 setupDemoVideos();
 setupGsapAnimations();
 setupKofiButtonAnimation();
+setupNodeRequirementAnimation();
 setupDownloadSectionAnimation();
 setupFastScrollDisarray();

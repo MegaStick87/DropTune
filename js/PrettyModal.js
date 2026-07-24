@@ -1,6 +1,7 @@
 export class PrettyModal {
     constructor() {
         this.injectStyles()
+        this.bindReleaseNavigation()
     }
 
     open(dialogId, trigger = null){
@@ -19,6 +20,8 @@ export class PrettyModal {
 
         const originState = canFlip ? Flip.getState(origin) : null
         dialog.showModal()
+        this.prepareReleaseHistory(dialog)
+        this.animateContent(dialog)
 
         if (!canFlip) {
             dialog.classList.add('pretty-modal-opening')
@@ -35,6 +38,129 @@ export class PrettyModal {
         })
     }
 
+    animateContent(dialog){
+        const gsap = window.gsap
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        if (!gsap || reduceMotion) return
+
+        const content = dialog.querySelectorAll(
+            '.modal-heading, .modal-text, .release-banner, .release-index, .release-entry, .news-item, .modal-actions'
+        )
+        if (!content.length) return
+
+        gsap.killTweensOf(content)
+        gsap.fromTo(content,
+            { y: 16, autoAlpha: 0, filter: 'blur(8px)' },
+            {
+                y: 0,
+                autoAlpha: 1,
+                filter: 'blur(0px)',
+                duration: 0.58,
+                stagger: 0.055,
+                delay: 0.12,
+                ease: 'power3.out',
+                clearProps: 'transform,opacity,visibility,filter'
+            }
+        )
+    }
+
+    bindReleaseNavigation(){
+        document.addEventListener('click', (event) => {
+            const button = event.target.closest('[data-release-target]')
+            if (!button) return
+
+            const dialog = button.closest('dialog')
+            const feed = dialog?.querySelector('.release-feed')
+            const target = dialog?.querySelector('#' + button.dataset.releaseTarget)
+            if (!dialog || !feed || !target) return
+
+            this.setActiveRelease(dialog, target.id)
+            const scroller = this.getReleaseScroller(dialog)
+            const targetTop = target.getBoundingClientRect().top - scroller.getBoundingClientRect().top + scroller.scrollTop
+            const gsap = window.gsap
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+            if (!gsap || reduceMotion) {
+                scroller.scrollTo({ top: targetTop, behavior: reduceMotion ? 'auto' : 'smooth' })
+                return
+            }
+
+            gsap.to(scroller, {
+                scrollTop: targetTop,
+                duration: 0.72,
+                ease: 'power3.inOut',
+                overwrite: true
+            })
+            gsap.fromTo(target.querySelectorAll('h3, .release-summary, .release-points li'),
+                { x: 12, autoAlpha: 0.55, filter: 'blur(5px)' },
+                {
+                    x: 0,
+                    autoAlpha: 1,
+                    filter: 'blur(0px)',
+                    duration: 0.52,
+                    stagger: 0.035,
+                    ease: 'power3.out',
+                    clearProps: 'transform,opacity,visibility,filter'
+                }
+            )
+        })
+    }
+
+    prepareReleaseHistory(dialog){
+        const feed = dialog.querySelector('.release-feed')
+        if (!feed) return
+
+        const scroller = this.getReleaseScroller(dialog)
+        scroller.scrollTop = 0
+        const firstEntry = feed.querySelector('.release-entry')
+        if (firstEntry) this.setActiveRelease(dialog, firstEntry.id)
+        if (scroller.dataset.releaseScrollBound) return
+
+        scroller.dataset.releaseScrollBound = 'true'
+        let frame = 0
+        scroller.addEventListener('scroll', () => {
+            cancelAnimationFrame(frame)
+            frame = requestAnimationFrame(() => {
+                const entries = [...feed.querySelectorAll('.release-entry')]
+                const scrollerTop = scroller.getBoundingClientRect().top
+                const threshold = scrollerTop + Math.min(120, scroller.clientHeight * 0.28)
+                let active = entries[0]
+
+                if (scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 2) {
+                    active = entries[entries.length - 1]
+                } else {
+                    entries.forEach((entry) => {
+                        if (entry.getBoundingClientRect().top <= threshold) active = entry
+                    })
+                }
+
+                if (active) this.setActiveRelease(dialog, active.id)
+            })
+        }, { passive: true })
+    }
+
+    getReleaseScroller(dialog){
+        const feed = dialog.querySelector('.release-feed')
+        const modalCard = dialog.querySelector('.modal-card')
+        return feed.scrollHeight > feed.clientHeight + 2 ? feed : modalCard
+    }
+    setActiveRelease(dialog, releaseId){
+        dialog.querySelectorAll('[data-release-target]').forEach((button) => {
+            const isActive = button.dataset.releaseTarget === releaseId
+            button.classList.toggle('is-active', isActive)
+            if (isActive) {
+                button.setAttribute('aria-current', 'true')
+                const list = button.closest('.release-index-list')
+                if (list && list.scrollWidth > list.clientWidth) {
+                    const left = button.offsetLeft - (list.clientWidth - button.offsetWidth) / 2
+                    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+                    list.scrollTo({ left, behavior: reduceMotion ? 'auto' : 'smooth' })
+                }
+            } else {
+                button.removeAttribute('aria-current')
+            }
+        })
+    }
     close(dialogId){
         const dialog = document.getElementById(dialogId)
         if(!dialog || !dialog.open) return
